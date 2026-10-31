@@ -52,7 +52,7 @@ export default async function Home() {
   const actions = [
     { href: "/pesquisa", title: "Pesquisar faculdades", text: "Filtre por nota, modalidade e região e veja o histórico de cada curso.", icon: Search, tone: "bg-sun text-brand-dark", show: true },
     { href: "/pesquisa", title: "Gerar relatório PDF", text: "Monte um relatório com a marca da Metta para o aluno levar para casa.", icon: FileText, tone: "bg-white text-brand-dark border border-border", show: true },
-    { href: "/coleta", title: "Coleta de dados", text: "Transforme as planilhas brutas do MEC na Tabela Modelo, com revisão.", icon: ClipboardCheck, tone: "bg-brand text-white", show: isAdmin },
+    { href: "/coleta", title: "Coleta de dados", text: "Transforme as planilhas brutas do MEC na Tabela Modelo, com revisão.", icon: ClipboardCheck, tone: "bg-brand text-white", show: true },
     { href: "/importar-historico", title: "Importar histórico", text: "Adicione ao banco as notas de uma edição já compilada.", icon: UploadCloud, tone: "bg-brand-dark text-white", show: isAdmin },
   ].filter((a) => a.show);
 
@@ -82,11 +82,9 @@ export default async function Home() {
               <Link href="/pesquisa" className="inline-flex items-center gap-2 rounded-xl bg-sun px-5 py-3 text-sm font-extrabold text-brand-dark transition hover:-translate-y-0.5 hover:shadow-lg">
                 Começar uma pesquisa <ArrowRight size={16} />
               </Link>
-              {isAdmin && (
-                <Link href="/coleta" className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-5 py-3 text-sm font-bold transition hover:bg-white/10">
-                  Abrir a coleta
-                </Link>
-              )}
+              <Link href="/coleta" className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-5 py-3 text-sm font-bold transition hover:bg-white/10">
+                Abrir a coleta
+              </Link>
             </div>
           </div>
 

@@ -1,10 +1,7 @@
-import { redirect } from "next/navigation";
-import { getCurrentProfile } from "@/lib/supabase/server";
 import ColetaForm from "./coleta-form";
 
-export default async function ColetaPage() {
-  const profile = await getCurrentProfile();
-  if (profile?.papel !== "admin") redirect("/");
+// Admin e Consultor fazem coleta; só o Admin importa histórico. A coleta não grava no banco.
+export default function ColetaPage() {
   return (
     // Ocupa a largura inteira da janela para a tabela de revisão caber sem rolagem lateral.
     <div className="relative left-1/2 w-screen -translate-x-1/2 px-6">

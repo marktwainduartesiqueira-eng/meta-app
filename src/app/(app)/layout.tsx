@@ -23,12 +23,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const links = [
     { href: "/", label: "Início" },
     { href: "/pesquisa", label: "Pesquisa" },
-    ...(profile.papel === "admin"
-      ? [
-          { href: "/coleta", label: "Coleta" },
-          { href: "/importar-historico", label: "Importar histórico" },
-        ]
-      : []),
+    { href: "/coleta", label: "Coleta" },
+    ...(profile.papel === "admin" ? [{ href: "/importar-historico", label: "Importar histórico" }] : []),
   ];
 
   return (
