@@ -30,18 +30,19 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip">
       <header className="bg-brand-dark text-white">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 px-4 py-3">
-          <Link href="/" aria-label="Metta Estudantil — início">
-            <Image src="/brand/logo.jpg" alt="Metta Estudantil" width={618} height={383} className="h-14 w-auto" priority />
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-1 px-4 py-2 sm:py-3">
+          <Link href="/" aria-label="Metta Estudantil — início" className="shrink-0">
+            <Image src="/brand/logo.jpg" alt="Metta Estudantil" width={618} height={383} className="h-12 w-auto sm:h-14" priority />
           </Link>
-          <nav className="flex flex-1 gap-4 text-sm text-white/80">
+          {/* No celular os links descem para uma segunda linha, com rolagem lateral se não couberem. */}
+          <nav className="order-last flex w-full gap-5 overflow-x-auto whitespace-nowrap pb-1 text-sm text-white/80 sm:order-none sm:w-auto sm:flex-1 sm:pb-0">
             {links.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-accent">
+              <Link key={l.href} href={l.href} className="py-1 hover:text-accent">
                 {l.label}
               </Link>
             ))}
           </nav>
-          <Link href="/perfil" className="hidden text-xs text-white/70 hover:text-accent sm:block" title="Editar meu perfil">
+          <Link href="/perfil" className="ml-auto max-w-[9rem] truncate text-xs text-white/70 hover:text-accent sm:ml-0 sm:max-w-none" title="Editar meu perfil">
             {displayName(profile)} · {profile.papel === "admin" ? "Admin" : "Consultor"}
           </Link>
           <SignOutButton />

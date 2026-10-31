@@ -65,16 +65,16 @@ export default async function Home() {
   return (
     <div className="space-y-8">
       {/* Boas-vindas */}
-      <section className="relative overflow-hidden rounded-3xl bg-brand-dark px-6 py-10 text-white sm:px-10 sm:py-12">
-        <div className="pointer-events-none absolute -left-10 -top-12 h-44 w-44 rounded-full bg-sun" />
+      <section className="relative overflow-hidden rounded-3xl bg-brand-dark px-5 py-8 text-white sm:px-10 sm:py-12">
+        <div className="pointer-events-none absolute -left-16 -top-20 h-40 w-40 rounded-full bg-sun sm:-left-10 sm:-top-12 sm:h-44 sm:w-44" />
         <div className="pointer-events-none absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-brand/70" />
         <div className="pointer-events-none absolute -bottom-10 -right-10 h-52 w-52 rounded-[3rem] bg-sun/90 rotate-12" />
         <div className="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <div className="pl-0 sm:pl-16">
+          <div className="min-w-0 pl-0 sm:pl-16">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
               <Sparkles size={14} className="text-sun" /> Assessoria FIES · Metta Estudantil
             </span>
-            <h1 className="mt-4 font-display text-3xl font-black leading-tight sm:text-5xl">
+            <h1 className="mt-4 font-display text-2xl font-black leading-tight [overflow-wrap:anywhere] sm:text-5xl">
               {greeting()}, <span className="text-sun">{profile ? displayName(profile) : ""}</span>!
             </h1>
             <p className="mt-3 max-w-xl text-base text-white/85 sm:text-lg">{phrase}</p>
