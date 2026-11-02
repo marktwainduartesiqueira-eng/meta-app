@@ -24,22 +24,44 @@ export default function LoginPage() {
     const supabase = createClient();
     if (mode === "entrar") {
       const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
-      if (error) setErro("E-mail ou senha incorretos.");
-      else {
+      if (error) {
+        setErro("E-mail ou senha incorretos.");
+        setLoading(false);
+      } else {
+        // Mantém "Aguarde…" até a nova página abrir.
         router.replace("/");
-        router.refresh();
       }
+      return;
     } else {
       const { data, error } = await supabase.auth.signUp({
         email,
         password: senha,
         options: { data: { nome, apelido: apelido.trim() } },
       });
-      if (error) setErro(error.message);
-      else if (data.session) {
-        router.replace("/");
-        router.refresh();
-      } else setInfo("Conta criada. Confirme o e-mail enviado e depois entre.");
+      if (error) {
+        setErro(
+          /rate limit/i.test(error.message)
+            ? "Muitas tentativas. Aguarde alguns minutos e tente de novo."
+            : /already registered/i.test(error.message)
+              ? "Este e-mail já tem cadastro. Use “Já tenho conta”."
+              : error.message,
+        );
+      } else if (data.user && data.user.identities?.length === 0) {
+        setErro("Este e-mail já tem cadastro. Use “Já tenho conta”.");
+      } else {
+        if (data.session) {
+          const { data: p } = await supabase.from("profiles").select("ativo").eq("id", data.user!.id).single();
+          if (p?.ativo) {
+            // Primeiro usuário do sistema (vira admin) entra direto.
+            router.replace("/");
+            return;
+          }
+          await supabase.auth.signOut();
+        }
+        setInfo("Cadastro enviado! Um administrador vai analisar e liberar seu acesso. Depois é só entrar com seu e-mail e senha.");
+        setMode("entrar");
+        setSenha("");
+      }
     }
     setLoading(false);
   }

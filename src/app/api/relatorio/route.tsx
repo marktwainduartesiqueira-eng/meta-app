@@ -19,8 +19,7 @@ export async function GET(request: NextRequest) {
   if (out.error) return new NextResponse(`Erro na consulta: ${out.error}`, { status: 500 });
 
   const filtros = [
-    sp.regiao && `região ${sp.regiao}`,
-    sp.uf && `UF ${sp.uf.toUpperCase()}`,
+    sp.uf && `estado ${sp.uf.toUpperCase()}`,
     sp.q && `busca “${sp.q}”`,
     sp.so_chances && "só chance Alta/Média",
   ]

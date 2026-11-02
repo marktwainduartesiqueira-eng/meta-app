@@ -1,7 +1,15 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { estimateChance, referenceScore, type ChanceResult } from "./chance";
 
-export const REGIOES = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"];
+/** 26 estados + Distrito Federal. */
+export const ESTADOS: [string, string][] = [
+  ["AC", "Acre"], ["AL", "Alagoas"], ["AP", "Amapá"], ["AM", "Amazonas"], ["BA", "Bahia"], ["CE", "Ceará"],
+  ["DF", "Distrito Federal"], ["ES", "Espírito Santo"], ["GO", "Goiás"], ["MA", "Maranhão"], ["MT", "Mato Grosso"],
+  ["MS", "Mato Grosso do Sul"], ["MG", "Minas Gerais"], ["PA", "Pará"], ["PB", "Paraíba"], ["PR", "Paraná"],
+  ["PE", "Pernambuco"], ["PI", "Piauí"], ["RJ", "Rio de Janeiro"], ["RN", "Rio Grande do Norte"],
+  ["RS", "Rio Grande do Sul"], ["RO", "Rondônia"], ["RR", "Roraima"], ["SC", "Santa Catarina"],
+  ["SP", "São Paulo"], ["SE", "Sergipe"], ["TO", "Tocantins"],
+];
 export const MODALIDADES = ["AC", "AC - PPIQ", "AC - PcD", "CAD", "CAD - PPIQ", "CAD - PcD"];
 
 export type SearchParams = Record<string, string | undefined>;
@@ -56,7 +64,6 @@ export async function runSearch(supabase: SupabaseClient, sp: SearchParams): Pro
     .order("ies_nome")
     .limit(5000);
   if (sp.curso && /^\d+$/.test(sp.curso)) query = query.eq("course_id", Number(sp.curso));
-  if (sp.regiao && REGIOES.includes(sp.regiao)) query = query.eq("regiao", sp.regiao);
   if (sp.uf && /^[A-Za-z]{2}$/.test(sp.uf)) query = query.eq("uf", sp.uf.toUpperCase());
   if (q) {
     const safe = q.replace(/[%,()*]/g, " ");

@@ -20,13 +20,15 @@ export async function proxy(request: NextRequest) {
     },
   );
 
-  const { data } = await supabase.auth.getUser();
+  // getClaims valida o JWT localmente (sem rede) e só renova o token quando expira.
+  const { data } = await supabase.auth.getClaims();
+  const logged = !!data?.claims;
   const isLogin = request.nextUrl.pathname.startsWith("/login");
 
-  if (!data.user && !isLogin) {
+  if (!logged && !isLogin) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
-  if (data.user && isLogin) {
+  if (logged && isLogin) {
     return NextResponse.redirect(new URL("/", request.url));
   }
   return response;

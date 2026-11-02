@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getCurrentProfile } from "@/lib/supabase/server";
+import { createClient, getCurrentProfile } from "@/lib/supabase/server";
 import { displayName } from "@/lib/names";
 import SignOutButton from "./sign-out-button";
 
@@ -11,7 +11,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
         <p className="max-w-sm text-sm text-muted">
-          Não foi possível carregar seu perfil, ou sua conta está desativada. Fale com o administrador.
+          {profile
+            ? "Seu cadastro está aguardando a aprovação de um administrador (ou a conta foi desativada). Assim que for liberado, é só entrar de novo."
+            : "Não foi possível carregar seu perfil. Fale com o administrador."}
         </p>
         <div className="rounded-lg bg-brand-dark p-2">
           <SignOutButton />
@@ -20,11 +22,23 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     );
   }
 
+  let pendentes = 0;
+  if (profile.papel === "admin") {
+    const supabase = await createClient();
+    const { count } = await supabase.from("profiles").select("id", { count: "exact", head: true }).eq("ativo", false);
+    pendentes = count ?? 0;
+  }
+
   const links = [
     { href: "/", label: "Início" },
     { href: "/pesquisa", label: "Pesquisa" },
     { href: "/coleta", label: "Coleta" },
-    ...(profile.papel === "admin" ? [{ href: "/importar-historico", label: "Importar histórico" }] : []),
+    ...(profile.papel === "admin"
+      ? [
+          { href: "/importar-historico", label: "Importar histórico" },
+          { href: "/usuarios", label: "Usuários", badge: pendentes },
+        ]
+      : []),
   ];
 
   return (
@@ -39,6 +53,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             {links.map((l) => (
               <Link key={l.href} href={l.href} className="py-1 hover:text-accent">
                 {l.label}
+                {"badge" in l && l.badge ? (
+                  <span className="ml-1.5 rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-extrabold text-brand-dark">{l.badge}</span>
+                ) : null}
               </Link>
             ))}
           </nav>

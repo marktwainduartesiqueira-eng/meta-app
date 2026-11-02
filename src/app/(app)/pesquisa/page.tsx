@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { referenceScore, type Chance } from "@/lib/chance";
-import { MAX_RESULTS, MODALIDADES, REGIOES, runSearch } from "@/lib/search";
+import { ESTADOS, MAX_RESULTS, MODALIDADES, runSearch } from "@/lib/search";
 import MiniChart from "./mini-chart";
 
 const badge: Record<Chance, string> = {
@@ -49,18 +49,16 @@ export default async function Pesquisa({
             ))}
           </select>
         </label>
-        <label className="text-xs font-medium">
-          Região
-          <select name="regiao" defaultValue={sp.regiao ?? ""} className={`${input} mt-1`}>
-            <option value="">Todas</option>
-            {REGIOES.map((r) => (
-              <option key={r}>{r}</option>
+        <label className="text-xs font-medium lg:col-span-2">
+          Estado
+          <select name="uf" defaultValue={(sp.uf ?? "").toUpperCase()} className={`${input} mt-1`}>
+            <option value="">Todos os estados</option>
+            {ESTADOS.map(([uf, nome]) => (
+              <option key={uf} value={uf}>
+                {nome} ({uf})
+              </option>
             ))}
           </select>
-        </label>
-        <label className="text-xs font-medium">
-          UF
-          <input name="uf" maxLength={2} defaultValue={sp.uf ?? ""} placeholder="SP" className={`${input} mt-1 uppercase`} />
         </label>
         <label className="text-xs font-medium">
           IES (nome, cidade ou código)

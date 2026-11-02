@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { cache } from "react";
 
 export async function createClient() {
   const cookieStore = await cookies();
@@ -30,15 +31,17 @@ export interface Profile {
   ativo: boolean;
 }
 
-/** Usuário logado + perfil, ou null. */
-export async function getCurrentProfile(): Promise<Profile | null> {
+/** Usuário logado + perfil, ou null. Em cache por requisição (layout e página compartilham). */
+export const getCurrentProfile = cache(async (): Promise<Profile | null> => {
   const supabase = await createClient();
-  const { data } = await supabase.auth.getUser();
-  if (!data.user) return null;
+  // getClaims valida o JWT localmente, sem ida ao servidor de autenticação.
+  const { data } = await supabase.auth.getClaims();
+  const id = data?.claims?.sub;
+  if (!id) return null;
   const { data: profile } = await supabase
     .from("profiles")
     .select("id,nome,apelido,email,papel,ativo")
-    .eq("id", data.user.id)
+    .eq("id", id)
     .single();
   return (profile as Profile | null) ?? null;
-}
+});
