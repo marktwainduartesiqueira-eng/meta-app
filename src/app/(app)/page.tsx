@@ -58,7 +58,7 @@ export default async function Home() {
 
   const steps = [
     { n: 1, t: "Informe a nota", d: "Coloque a nota do ENEM do aluno e escolha a modalidade." },
-    { n: 2, t: "Compare as opções", d: "Veja as 3 melhores chances com o histórico de cada edição." },
+    { n: 2, t: "Compare as opções", d: "Veja as 5 melhores chances com o histórico de cada edição." },
     { n: 3, t: "Entregue o relatório", d: "Gere o PDF e envie ao aluno com o contato da Metta." },
   ];
 

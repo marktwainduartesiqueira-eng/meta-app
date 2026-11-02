@@ -86,7 +86,7 @@ export default function LoginPage() {
             </label>
             <label className="mb-3 block text-sm font-medium">
               Como você quer ser chamado(a)?
-              <input className={`${input} mt-1`} value={apelido} onChange={(e) => setApelido(e.target.value)} maxLength={40} placeholder="ex.: Mark Twain" required />
+              <input className={`${input} mt-1`} value={apelido} onChange={(e) => setApelido(e.target.value)} maxLength={40} placeholder="ex.: Ana Beatriz" required />
             </label>
           </>
         )}

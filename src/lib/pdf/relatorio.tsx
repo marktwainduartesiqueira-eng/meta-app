@@ -21,15 +21,15 @@ const s = StyleSheet.create({
   card: { flex: 1, borderWidth: 1, borderColor: C.line, borderRadius: 4, padding: 6 },
   label: { fontSize: 7, color: C.muted, textTransform: "uppercase" },
   value: { fontSize: 12, fontFamily: "Helvetica-Bold", color: C.blue, marginTop: 2 },
-  fac: { flexDirection: "row", borderWidth: 1, borderColor: C.line, borderRadius: 6, marginBottom: 7, overflow: "hidden" },
-  facInfo: { width: 180, padding: 8, backgroundColor: "#f8fafc" },
+  fac: { flexDirection: "row", borderWidth: 1, borderColor: C.line, borderRadius: 6, marginBottom: 5, overflow: "hidden" },
+  facInfo: { width: 180, padding: 6, backgroundColor: "#f8fafc" },
   facName: { fontSize: 11, fontFamily: "Helvetica-Bold", color: C.night },
   facChart: { flex: 1, padding: 4, alignItems: "center", justifyContent: "center" },
   note: { fontSize: 7.5, color: C.muted, marginTop: 6, lineHeight: 1.4 },
-  mensagem: { marginTop: 6, paddingVertical: 8, paddingHorizontal: 12, borderLeftWidth: 3, borderLeftColor: C.amber, backgroundColor: "#fffbeb", borderRadius: 3 },
+  mensagem: { marginTop: 4, paddingVertical: 6, paddingHorizontal: 12, borderLeftWidth: 3, borderLeftColor: C.amber, backgroundColor: "#fffbeb", borderRadius: 3 },
   mensagemTxt: { fontSize: 10, fontFamily: "Helvetica-Oblique", color: C.night, lineHeight: 1.4 },
-  contact: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 8, padding: 8, borderRadius: 6, backgroundColor: C.night, color: "#fff" },
-  qr: { width: 62, height: 62, borderRadius: 4, backgroundColor: "#fff" },
+  contact: { flexDirection: "row", alignItems: "center", gap: 12, marginTop: 6, padding: 7, borderRadius: 6, backgroundColor: C.night, color: "#fff" },
+  qr: { width: 52, height: 52, borderRadius: 4, backgroundColor: "#fff" },
   footer: { position: "absolute", bottom: 16, left: 26, right: 26, fontSize: 7, color: C.muted, flexDirection: "row", justifyContent: "space-between" },
 });
 
@@ -37,10 +37,10 @@ const f = (n: number | null) => (n === null ? "—" : n.toLocaleString("pt-BR", 
 
 function ScoreChart({ labels, values, aluno }: { labels: string[]; values: (number | null)[]; aluno: number | null }) {
   const W = 290;
-  const H = 104;
+  const H = 76;
   const padX = 34;
-  const top = 22;
-  const bottom = 20;
+  const top = 17;
+  const bottom = 16;
   const nums = [...values, aluno].filter((v): v is number => !!v);
   if (nums.length === 0) return <Text style={{ color: C.muted }}>Sem notas nas edições carregadas.</Text>;
   const lo = Math.min(...nums) - 15;
@@ -76,7 +76,7 @@ function ScoreChart({ labels, values, aluno }: { labels: string[]; values: (numb
         );
       })}
       {labels.map((l, i) => (
-        <Text key={l} x={x(i)} y={H - 6} style={{ fontSize: 8, fill: C.muted }} textAnchor="middle">
+        <Text key={l} x={x(i)} y={H - 4} style={{ fontSize: 8, fill: C.muted }} textAnchor="middle">
           {l}
         </Text>
       ))}
@@ -141,7 +141,7 @@ export function Relatorio(p: RelatorioProps) {
               </Text>
               <Text style={{ color: C.muted, fontSize: 8 }}>Código IES {it.info.ies_codigo}</Text>
               {p.nota !== null && (
-                <Text style={{ marginTop: 8, fontSize: 11, fontFamily: "Helvetica-Bold", color: CHANCE_COLOR[it.res.chance] }}>
+                <Text style={{ marginTop: 4, fontSize: 11, fontFamily: "Helvetica-Bold", color: CHANCE_COLOR[it.res.chance] }}>
                   Chance {it.res.chance}
                 </Text>
               )}

@@ -30,7 +30,7 @@ export default function PerfilForm({ id, nome, apelido, email, preview }: { id: 
     <form onSubmit={save} className="space-y-4 rounded-2xl border border-border bg-card p-6">
       <label className="block text-sm font-medium">
         Como você quer ser chamado(a)?
-        <input value={apelidoV} onChange={(e) => setApelidoV(e.target.value)} maxLength={40} placeholder="ex.: Mark Twain" className={input} />
+        <input value={apelidoV} onChange={(e) => setApelidoV(e.target.value)} maxLength={40} placeholder="ex.: Ana Beatriz" className={input} />
         <span className="mt-1 block text-xs font-normal text-muted">Aparece em &ldquo;Boa tarde, {apelidoV.trim() || preview}!&rdquo;</span>
       </label>
       <label className="block text-sm font-medium">

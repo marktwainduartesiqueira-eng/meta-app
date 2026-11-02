@@ -36,7 +36,7 @@ export interface SearchItem {
 }
 
 /** Máximo de faculdades exibidas na pesquisa e no relatório PDF. */
-export const MAX_RESULTS = 3;
+export const MAX_RESULTS = 5;
 
 const CHANCE_RANK: Record<string, number> = { Alta: 0, Média: 1, Baixa: 2, Improvável: 3, "Sem histórico": 4 };
 
@@ -64,7 +64,11 @@ export async function runSearch(supabase: SupabaseClient, sp: SearchParams): Pro
     .order("ies_nome")
     .limit(5000);
   if (sp.curso && /^\d+$/.test(sp.curso)) query = query.eq("course_id", Number(sp.curso));
-  if (sp.uf && /^[A-Za-z]{2}$/.test(sp.uf)) query = query.eq("uf", sp.uf.toUpperCase());
+  const ufs = (sp.uf ?? "")
+    .toUpperCase()
+    .split(",")
+    .filter((u) => ESTADOS.some(([x]) => x === u));
+  if (ufs.length) query = query.in("uf", ufs);
   if (q) {
     const safe = q.replace(/[%,()*]/g, " ");
     query = /^\d+$/.test(safe)

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { referenceScore, type Chance } from "@/lib/chance";
-import { ESTADOS, MAX_RESULTS, MODALIDADES, runSearch } from "@/lib/search";
+import { MAX_RESULTS, MODALIDADES, runSearch } from "@/lib/search";
+import EstadosSelect from "./estados-select";
 import MiniChart from "./mini-chart";
 
 const badge: Record<Chance, string> = {
@@ -49,17 +50,10 @@ export default async function Pesquisa({
             ))}
           </select>
         </label>
-        <label className="text-xs font-medium lg:col-span-2">
-          Estado
-          <select name="uf" defaultValue={(sp.uf ?? "").toUpperCase()} className={`${input} mt-1`}>
-            <option value="">Todos os estados</option>
-            {ESTADOS.map(([uf, nome]) => (
-              <option key={uf} value={uf}>
-                {nome} ({uf})
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="text-xs font-medium lg:col-span-2">
+          Estados (um ou mais)
+          <EstadosSelect initial={sp.uf ?? ""} />
+        </div>
         <label className="text-xs font-medium">
           IES (nome, cidade ou código)
           <input name="q" defaultValue={q} className={`${input} mt-1`} />
