@@ -3,7 +3,7 @@ import path from "node:path";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { NextResponse, type NextRequest } from "next/server";
 import { getCurrentProfile, createClient } from "@/lib/supabase/server";
-import { runSearch } from "@/lib/search";
+import { parseUfQuotas, runSearch } from "@/lib/search";
 import { Relatorio } from "@/lib/pdf/relatorio";
 import { mensagemMotivacional } from "@/lib/pdf/mensagens";
 
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   if (out.error) return new NextResponse(`Erro na consulta: ${out.error}`, { status: 500 });
 
   const filtros = [
-    sp.uf && `estados ${sp.uf.toUpperCase().split(",").join(", ")}`,
+    sp.uf && `estados ${[...parseUfQuotas(sp.uf)].map(([u, n]) => `${u} (${n})`).join(", ")}`,
     sp.q && `busca “${sp.q}”`,
     sp.so_chances && "só chance Alta/Média",
   ]

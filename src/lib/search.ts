@@ -38,6 +38,21 @@ export interface SearchItem {
 /** Máximo de faculdades exibidas na pesquisa e no relatório PDF. */
 export const MAX_RESULTS = 5;
 
+/** Máximo de faculdades por estado quando a cota é informada. */
+export const MAX_POR_ESTADO = 20;
+
+/** Lê `SP:5,RN:1` (ou só `SP,RN`, que vale MAX_RESULTS por estado) em UF → quantidade. */
+export function parseUfQuotas(raw: string): Map<string, number> {
+  const out = new Map<string, number>();
+  for (const part of raw.toUpperCase().split(",")) {
+    const [uf, n] = part.split(":");
+    if (!ESTADOS.some(([x]) => x === uf)) continue;
+    const qtd = Math.min(MAX_POR_ESTADO, Math.max(1, Math.floor(Number(n)) || MAX_RESULTS));
+    out.set(uf, qtd);
+  }
+  return out;
+}
+
 const CHANCE_RANK: Record<string, number> = { Alta: 0, Média: 1, Baixa: 2, Improvável: 3, "Sem histórico": 4 };
 
 export interface SearchOutput {
@@ -64,11 +79,8 @@ export async function runSearch(supabase: SupabaseClient, sp: SearchParams): Pro
     .order("ies_nome")
     .limit(5000);
   if (sp.curso && /^\d+$/.test(sp.curso)) query = query.eq("course_id", Number(sp.curso));
-  const ufs = (sp.uf ?? "")
-    .toUpperCase()
-    .split(",")
-    .filter((u) => ESTADOS.some(([x]) => x === u));
-  if (ufs.length) query = query.in("uf", ufs);
+  const quotas = parseUfQuotas(sp.uf ?? "");
+  if (quotas.size) query = query.in("uf", [...quotas.keys()]);
   if (q) {
     const safe = q.replace(/[%,()*]/g, " ");
     query = /^\d+$/.test(safe)
@@ -106,5 +118,17 @@ export async function runSearch(supabase: SupabaseClient, sp: SearchParams): Pro
     list.sort((a, b) => CHANCE_RANK[a.res.chance] - CHANCE_RANK[b.res.chance] || latest(b) - latest(a));
   }
 
-  return { modalidade, nota, editions, list: list.slice(0, MAX_RESULTS), total: list.length, error: error?.message ?? null };
+  let shown = list.slice(0, MAX_RESULTS);
+  if (quotas.size) {
+    // Cota por estado: as N melhores de cada UF, mantendo a ordem geral.
+    const used = new Map<string, number>();
+    shown = list.filter((c) => {
+      const n = used.get(c.info.uf) ?? 0;
+      if (n >= (quotas.get(c.info.uf) ?? 0)) return false;
+      used.set(c.info.uf, n + 1);
+      return true;
+    });
+  }
+
+  return { modalidade, nota, editions, list: shown, total: list.length, error: error?.message ?? null };
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { referenceScore, type Chance } from "@/lib/chance";
-import { MAX_RESULTS, MODALIDADES, runSearch } from "@/lib/search";
+import { MODALIDADES, runSearch } from "@/lib/search";
 import EstadosSelect from "./estados-select";
 import MiniChart from "./mini-chart";
 
@@ -70,7 +70,7 @@ export default async function Pesquisa({
 
       <div className="mb-3 flex items-center justify-between gap-3">
         <p className="text-sm text-muted">
-          {total > MAX_RESULTS
+          {total > list.length
             ? `Mostrando as ${list.length} melhores opções de ${total} em ${modalidade}${nota === null ? " (informe a nota para ordenar por chance)" : ""}`
             : `${total} resultado(s) em ${modalidade}`}
         </p>
