@@ -60,6 +60,10 @@ function ScoreChart({
   const cx = (i: number) => padX + slot * i + slot / 2;
   const base = H - bottom;
   const y = (v: number) => top + ((hi - v) * (base - top)) / (hi - lo);
+  // Edições sem nota, mas com posição: barra âmbar em escala própria (mostra até onde a lista andou).
+  const posOnly = positions.map((p, i) => (p && !values[i] ? p : null));
+  const posMax = Math.max(...posOnly.filter((p): p is number => !!p), 1) * 1.2;
+  const yPos = (p: number) => base - (p * (base - top)) / posMax;
 
   return (
     <Svg width={W} height={H}>
@@ -67,15 +71,22 @@ function ScoreChart({
       {values.map((v, i) =>
         v ? <Rect key={`b${i}`} x={cx(i) - barW / 2} y={y(v)} width={barW} height={base - y(v)} fill={C.blue} /> : null,
       )}
-      {values.map((v, i) => (
-        <Text key={`t${i}`} x={cx(i)} y={v ? y(v) - 3 : base - 4} style={{ fontSize: 8, fill: v ? "#0f172a" : "#94a3b8" }} textAnchor="middle">
-          {v ? f(v) : "sem nota"}
-        </Text>
-      ))}
+      {posOnly.map((p, i) =>
+        p ? <Rect key={`pb${i}`} x={cx(i) - barW / 2} y={yPos(p)} width={barW} height={base - yPos(p)} fill={C.amber} /> : null,
+      )}
+      {values.map((v, i) => {
+        const p = posOnly[i];
+        return (
+          <Text key={`t${i}`} x={cx(i)} y={v ? y(v) - 3 : p ? yPos(p) - 3 : base - 4} style={{ fontSize: 8, fill: v ? "#0f172a" : p ? "#92400e" : "#94a3b8" }} textAnchor="middle">
+            {v ? f(v) : p ? `${p}º` : "sem dados"}
+          </Text>
+        );
+      })}
       {aluno !== null && (
         <>
-          <Line x1={padX - 8} y1={y(aluno)} x2={W - padX + 8} y2={y(aluno)} stroke="#dc2626" strokeWidth={1.8} />
-          <Text x={padX - 8} y={y(aluno) - 3} style={{ fontSize: 7.5, fill: "#dc2626" }}>
+          <Line x1={padX - 8} y1={y(aluno)} x2={W - padX + 8} y2={y(aluno)} stroke="#dc2626" strokeWidth={3} />
+          <Rect x={padX - 8} y={y(aluno) - 12} width={52} height={10} fill="#dc2626" />
+          <Text x={padX - 5} y={y(aluno) - 4} style={{ fontSize: 7.5, fill: "#ffffff" }}>
             {`Aluno ${f(aluno)}`}
           </Text>
         </>
@@ -168,7 +179,7 @@ export function Relatorio(p: RelatorioProps) {
         ))}
 
         <Text style={s.note}>
-          Barras = nota ENEM do último aprovado (ou nota de corte, quando indisponível); abaixo de cada edição, a posição do último chamado. A linha vermelha é a nota do aluno. A chance é uma estimativa
+          Barras = nota ENEM do último aprovado (ou nota de corte, quando indisponível); barras âmbar = edição sem nota, com altura pela posição do último chamado (mostra até onde a lista andou); abaixo de cada edição, a posição. A linha vermelha é a nota do aluno. A chance é uma estimativa
           baseada apenas no histórico das edições carregadas e não garante aprovação.
         </Text>
 
