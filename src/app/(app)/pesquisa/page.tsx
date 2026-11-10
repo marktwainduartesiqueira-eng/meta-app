@@ -101,7 +101,11 @@ export default async function Pesquisa({
               {c.info.campus} · {c.info.uf} · cód. {c.info.ies_codigo}
             </p>
             <MiniChart
-              data={editions.map((e) => ({ edicao: e, ref: c.byEd.get(e) ? referenceScore(c.byEd.get(e)!) : null }))}
+              data={editions.map((e) => ({
+                edicao: e,
+                ref: c.byEd.get(e) ? referenceScore(c.byEd.get(e)!) : null,
+                pos: c.byEd.get(e)?.pos_ultimo_chamado ?? null,
+              }))}
               aluno={nota}
             />
           </div>

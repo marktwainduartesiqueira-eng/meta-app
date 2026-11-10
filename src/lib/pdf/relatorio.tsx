@@ -1,4 +1,4 @@
-﻿import { Circle, Document, Image, Line, Page, Polyline, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
+﻿import { Document, Image, Line, Page, Rect, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
 import { referenceScore } from "../chance";
 import type { SearchItem } from "../search";
 
@@ -35,49 +35,59 @@ const s = StyleSheet.create({
 
 const f = (n: number | null) => (n === null ? "—" : n.toLocaleString("pt-BR", { maximumFractionDigits: 2 }));
 
-function ScoreChart({ labels, values, aluno }: { labels: string[]; values: (number | null)[]; aluno: number | null }) {
+function ScoreChart({
+  labels,
+  values,
+  positions,
+  aluno,
+}: {
+  labels: string[];
+  values: (number | null)[];
+  positions: (number | null)[];
+  aluno: number | null;
+}) {
   const W = 290;
-  const H = 76;
-  const padX = 34;
+  const H = 88;
+  const padX = 20;
   const top = 17;
-  const bottom = 16;
+  const bottom = 26;
   const nums = [...values, aluno].filter((v): v is number => !!v);
-  if (nums.length === 0) return <Text style={{ color: C.muted }}>Sem notas nas edições carregadas.</Text>;
-  const lo = Math.min(...nums) - 15;
-  const hi = Math.max(...nums) + 15;
-  const x = (i: number) => (labels.length === 1 ? W / 2 : padX + (i * (W - 2 * padX)) / (labels.length - 1));
-  const y = (v: number) => top + ((hi - v) * (H - top - bottom)) / (hi - lo);
-  const pts = values.map((v, i) => (v ? { x: x(i), y: y(v), v } : null));
-  const line = pts.filter((p): p is NonNullable<typeof p> => !!p);
+  if (nums.length === 0 && !positions.some((p) => p)) return <Text style={{ color: C.muted }}>Sem notas nas edições carregadas.</Text>;
+  const lo = nums.length ? Math.min(...nums) - 60 : 0;
+  const hi = nums.length ? Math.max(...nums) + 20 : 1;
+  const slot = (W - 2 * padX) / labels.length;
+  const barW = Math.min(34, slot * 0.6);
+  const cx = (i: number) => padX + slot * i + slot / 2;
+  const base = H - bottom;
+  const y = (v: number) => top + ((hi - v) * (base - top)) / (hi - lo);
 
   return (
     <Svg width={W} height={H}>
-      <Line x1={padX - 10} y1={H - bottom} x2={W - padX + 10} y2={H - bottom} stroke={C.line} strokeWidth={1} />
+      <Line x1={padX - 8} y1={base} x2={W - padX + 8} y2={base} stroke={C.line} strokeWidth={1} />
+      {values.map((v, i) =>
+        v ? <Rect key={`b${i}`} x={cx(i) - barW / 2} y={y(v)} width={barW} height={base - y(v)} fill={C.blue} /> : null,
+      )}
+      {values.map((v, i) => (
+        <Text key={`t${i}`} x={cx(i)} y={v ? y(v) - 3 : base - 4} style={{ fontSize: 8, fill: v ? "#0f172a" : "#94a3b8" }} textAnchor="middle">
+          {v ? f(v) : "sem nota"}
+        </Text>
+      ))}
       {aluno !== null && (
         <>
-          <Line x1={0} y1={7} x2={16} y2={7} stroke={C.teal} strokeWidth={1.2} strokeDasharray="4 3" />
-          <Text x={20} y={10} style={{ fontSize: 7.5, fill: C.teal }}>
-            {`Nota do aluno: ${f(aluno)}`}
+          <Line x1={padX - 8} y1={y(aluno)} x2={W - padX + 8} y2={y(aluno)} stroke="#dc2626" strokeWidth={1.8} />
+          <Text x={padX - 8} y={y(aluno) - 3} style={{ fontSize: 7.5, fill: "#dc2626" }}>
+            {`Aluno ${f(aluno)}`}
           </Text>
-          <Line x1={padX - 10} y1={y(aluno)} x2={W - padX + 10} y2={y(aluno)} stroke={C.teal} strokeWidth={1} strokeDasharray="4 3" />
         </>
       )}
-      {line.length > 1 && <Polyline points={line.map((p) => `${p.x},${p.y}`).join(" ")} stroke={C.blue} strokeWidth={2} fill="none" />}
-      {line.map((p, i) => (
-        <Circle key={i} cx={p.x} cy={p.y} r={3.5} fill={C.blue} />
-      ))}
-      {line.map((p, i) => {
-        // Se a linha da nota do aluno passa logo acima do ponto, o valor vai para baixo dele.
-        const nearAbove = aluno !== null && y(aluno) <= p.y && p.y - y(aluno) < 14;
-        return (
-          <Text key={`t${i}`} x={p.x} y={nearAbove ? p.y + 14 : p.y - 8} style={{ fontSize: 8, fill: "#0f172a" }} textAnchor="middle">
-            {f(p.v)}
-          </Text>
-        );
-      })}
       {labels.map((l, i) => (
-        <Text key={l} x={x(i)} y={H - 4} style={{ fontSize: 8, fill: C.muted }} textAnchor="middle">
+        <Text key={l} x={cx(i)} y={base + 10} style={{ fontSize: 8, fill: C.muted }} textAnchor="middle">
           {l}
+        </Text>
+      ))}
+      {positions.map((p, i) => (
+        <Text key={`p${i}`} x={cx(i)} y={base + 20} style={{ fontSize: 7.5, fill: p ? C.blue : "#94a3b8" }} textAnchor="middle">
+          {p ? `${p}º` : "—"}
         </Text>
       ))}
     </Svg>
@@ -150,6 +160,7 @@ export function Relatorio(p: RelatorioProps) {
               <ScoreChart
                 labels={p.editions}
                 values={p.editions.map((e) => (it.byEd.get(e) ? referenceScore(it.byEd.get(e)!) : null))}
+                positions={p.editions.map((e) => it.byEd.get(e)?.pos_ultimo_chamado ?? null)}
                 aluno={p.nota}
               />
             </View>
@@ -157,7 +168,7 @@ export function Relatorio(p: RelatorioProps) {
         ))}
 
         <Text style={s.note}>
-          Notas por edição = nota ENEM do último aprovado (ou nota de corte, quando indisponível). A chance é uma estimativa
+          Barras = nota ENEM do último aprovado (ou nota de corte, quando indisponível); abaixo de cada edição, a posição do último chamado. A linha vermelha é a nota do aluno. A chance é uma estimativa
           baseada apenas no histórico das edições carregadas e não garante aprovação.
         </Text>
 

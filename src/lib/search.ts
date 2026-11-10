@@ -26,6 +26,7 @@ export interface HistRow {
   nota_corte: number | null;
   nota_ultimo_aprovado: number | null;
   vagas: number | null;
+  pos_ultimo_chamado: number | null;
 }
 
 export interface SearchItem {
@@ -74,7 +75,7 @@ export async function runSearch(supabase: SupabaseClient, sp: SearchParams): Pro
 
   let query = supabase
     .from("v_historico")
-    .select("course_id,ies_codigo,ies_nome,campus,municipio,uf,regiao,edicao,nota_corte,nota_ultimo_aprovado,vagas")
+    .select("course_id,ies_codigo,ies_nome,campus,municipio,uf,regiao,edicao,nota_corte,nota_ultimo_aprovado,vagas,pos_ultimo_chamado")
     .eq("modalidade", modalidade)
     .order("ies_nome")
     .limit(5000);
