@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 import { createClient, getCurrentProfile } from "@/lib/supabase/server";
 import { displayName } from "@/lib/names";
+import ArcoGraduado from "./arco-graduado";
 
 const PHRASES = [
   "Cada nota conta uma história. Vamos ajudar mais um aluno a conquistar a bolsa?",
@@ -88,8 +90,9 @@ export default async function Home() {
           </div>
 
           {/* Cartão no estilo dos posts da Metta */}
-          <div className="relative mx-auto w-full max-w-xs">
-            <div className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur">
+          <div className="relative mx-auto mt-6 w-full max-w-xs lg:mt-0">
+            <ArcoGraduado edicoes={editions.length} />
+            <div className="relative z-10 rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur">
               <div className="mb-3 flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-sun text-brand-dark">
                   <GraduationCap size={24} />
@@ -102,8 +105,8 @@ export default async function Home() {
               <div className="rounded-xl bg-white p-3 text-brand-dark">
                 <div className="t-caps text-muted">Edições no banco</div>
                 <div className="mt-1 flex flex-wrap gap-1.5">
-                  {(editions.length ? editions : ["—"]).map((e) => (
-                    <span key={e} className="rounded-full bg-sun px-2.5 py-0.5 text-xs font-extrabold">{e}</span>
+                  {(editions.length ? editions : ["—"]).map((e, k) => (
+                    <span key={e} className="ed-pill rounded-full bg-sun px-2.5 py-0.5 text-xs font-extrabold" style={{ "--seg": k } as CSSProperties}>{e}</span>
                   ))}
                 </div>
               </div>

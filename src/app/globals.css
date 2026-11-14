@@ -294,3 +294,29 @@ input::placeholder, textarea::placeholder { color: #4a5a6b; opacity: 1; } /* Ard
   * { scrollbar-width: thin; scrollbar-color: #9db0c8 transparent; }
   header * { scrollbar-color: rgb(255 255 255 / 0.35) transparent; }
 }
+
+/* ===== Hero: arco graduado (o painel "acende", uma vez, ~2s) ===== */
+@keyframes arc-draw {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  15% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes arc-light {
+  from { stroke: rgb(255 255 255 / 0.35); }
+}
+@keyframes pill-light {
+  from { background-color: #e4ebf5; }
+}
+.arc-tick {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: arc-draw 0.42s var(--ease-out) backwards, arc-light 0.5s ease-out backwards;
+  animation-delay: calc(0.35s + var(--i) * 22ms), calc(0.9s + var(--seg) * 0.26s);
+}
+.ed-pill {
+  animation: pill-light 0.5s ease-out backwards;
+  animation-delay: calc(0.9s + var(--seg) * 0.26s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .arc-tick, .ed-pill { animation: none; }
+}
