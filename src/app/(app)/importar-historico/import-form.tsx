@@ -166,7 +166,7 @@ export default function ImportForm() {
   const byMod = records.reduce<Record<string, number>>((a, r) => ((a[r.modality] = (a[r.modality] ?? 0) + 1), a), {});
 
   return (
-    <div className="space-y-5 rounded-2xl border border-border bg-card p-6">
+    <div className="rise space-y-5 rounded-2xl border border-border bg-card p-6">
       <label className="block text-sm font-semibold">
         Planilha “Dados Compilados” (.xlsx)
         <input

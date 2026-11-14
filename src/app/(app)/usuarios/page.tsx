@@ -62,14 +62,14 @@ export default async function UsuariosPage() {
         <p className="t-lead text-muted">Quem se cadastra pelo “Primeiro acesso” fica aguardando aqui até você aprovar.</p>
       </div>
 
-      <section>
+      <section className="rise">
         <h2 className="t-section mb-3 text-brand-dark">
           Aguardando aprovação / desativados ({aguardando.length})
         </h2>
         {aguardando.length ? <Table list={aguardando} pendente /> : <p className="text-sm text-muted">Ninguém aguardando.</p>}
       </section>
 
-      <section>
+      <section className="rise">
         <h2 className="t-section mb-3 text-brand-dark">Equipe ativa ({ativos.length})</h2>
         <Table list={ativos} pendente={false} />
       </section>

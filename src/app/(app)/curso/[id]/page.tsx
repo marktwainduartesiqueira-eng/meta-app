@@ -91,12 +91,12 @@ export default async function CursoPage({
       </form>
       {alunoNota !== null && <p className="text-sm text-muted">{res.explicacao} Estimativa histórica, sem garantia de aprovação.</p>}
 
-      <div className="border-t border-border pt-6">
+      <div className="rise border-t border-border pt-6">
         <h2 className="t-caps mb-3 text-muted">Histórico de notas — {modalidade}</h2>
         {mine.length ? <HistoryChart data={chart} /> : <p className="text-sm text-muted">Sem registros nesta modalidade.</p>}
       </div>
 
-      <div className="scroll-shadow overflow-x-auto rounded-2xl border border-border bg-card">
+      <div className="rise scroll-shadow overflow-x-auto rounded-2xl border border-border bg-card">
         <table className="sticky-first w-full text-sm">
           <thead className="bg-brand-dark text-left text-sm text-white">
             <tr>

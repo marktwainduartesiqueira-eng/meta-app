@@ -65,7 +65,7 @@ export default async function Home() {
   return (
     <div className="space-y-8">
       {/* Boas-vindas */}
-      <section className="relative overflow-hidden rounded-3xl bg-brand-dark px-5 py-8 text-white sm:px-10 sm:py-10">
+      <section className="rise relative overflow-hidden rounded-3xl bg-brand-dark px-5 py-8 text-white sm:px-10 sm:py-10">
         <div className="pointer-events-none absolute -left-14 -top-16 h-28 w-28 rounded-full bg-sun sm:-left-12 sm:-top-14 sm:h-32 sm:w-32" />
         <div className="pointer-events-none absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-brand/70" />
         <div className="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
@@ -113,7 +113,7 @@ export default async function Home() {
       </section>
 
       {/* Números */}
-      <section className="grid gap-4 sm:grid-cols-2">
+      <section className="stagger grid gap-4 sm:grid-cols-2">
         {stats.map((s) => (
           <div key={s.label} className={`relative overflow-hidden rounded-2xl p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${s.tone}`}>
             <s.icon className="absolute -right-2 -top-2 opacity-15" size={86} />
@@ -129,7 +129,7 @@ export default async function Home() {
       {/* Atalhos */}
       <section>
         <h2 className="t-section mb-4 text-brand-dark">O que vamos fazer hoje?</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="stagger grid gap-4 sm:grid-cols-2">
           {actions.map((a) => (
             <Link key={a.title} href={a.href} className={`group flex flex-col rounded-2xl p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${a.tone}`}>
               <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/10">
@@ -146,7 +146,7 @@ export default async function Home() {
       </section>
 
       {/* Passo a passo */}
-      <section className="rounded-3xl border border-border bg-card p-6 sm:p-8">
+      <section className="rise rounded-3xl border border-border bg-card p-6 sm:p-8">
         <h2 className="t-section mb-5 text-brand-dark">Do atendimento ao relatório, em 3 passos</h2>
         <div className="grid gap-5 md:grid-cols-3">
           {steps.map((s) => (

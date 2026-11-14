@@ -96,7 +96,7 @@ export default async function Pesquisa({
           )}
         </div>
 
-        <div className="mt-5 divide-y divide-border border-t border-border">
+        <div className="stagger mt-5 divide-y divide-border border-t border-border">
           {list.map((c) => (
             <div key={c.id} className="grid gap-4 py-6 md:grid-cols-[15rem_minmax(0,1fr)] md:items-center md:gap-8">
               <div>
@@ -110,7 +110,7 @@ export default async function Pesquisa({
                   {c.info.campus} · {c.info.uf} · cód. {c.info.ies_codigo}
                 </p>
                 {nota !== null && (
-                  <span className={`mt-3 inline-block rounded-full px-3 py-1 text-sm font-bold ${badge[c.res.chance]}`}>
+                  <span className={`pop mt-3 inline-block rounded-full px-3 py-1 text-sm font-bold ${badge[c.res.chance]}`}>
                     {c.res.chance}
                   </span>
                 )}

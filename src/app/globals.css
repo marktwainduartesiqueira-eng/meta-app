@@ -185,3 +185,74 @@ main input:disabled {
 }
 .sticky-first thead th:first-child { background: var(--brand-dark); z-index: 11; }
 .sticky-first tbody td:first-child { background: #fff; }
+
+/* ===== Movimento: o painel "acende" (curto, só transform/opacity, com caminho para movimento reduzido) ===== */
+:root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.88); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes menu-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Entrada: o conteúdo já está visível por padrão; a animação só "devolve" de um estado inicial (backwards). */
+.rise { animation: rise 0.38s var(--ease-out) backwards; }
+.stagger > * { animation: rise 0.38s var(--ease-out) backwards; }
+.stagger > :nth-child(2) { animation-delay: 50ms; }
+.stagger > :nth-child(3) { animation-delay: 100ms; }
+.stagger > :nth-child(4) { animation-delay: 150ms; }
+.stagger > :nth-child(5) { animation-delay: 200ms; }
+.stagger > :nth-child(n + 6) { animation-delay: 250ms; }
+.pop { animation: pop-in 0.26s var(--ease-out) 0.18s backwards; }
+
+/* Avisos de sucesso/erro/informação aparecem com um fade curto. */
+main p[class*="bg-red-50"],
+main p[class*="bg-blue-50"],
+main p[class*="bg-amber-50"] {
+  animation: fade-in 0.22s ease-out backwards;
+}
+/* Lista de estados abre com um deslizar curto. */
+details[open] > div.absolute { animation: menu-in 0.16s var(--ease-out) backwards; }
+
+/* Feedback dos botões e links em pílula. */
+:is(main, header) :is(button, a)[class*="rounded-full"] {
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), background-color 0.18s, color 0.18s, border-color 0.18s, opacity 0.18s;
+}
+:is(main, header) :is(button, a)[class*="rounded-full"]:active:not(:disabled) {
+  transform: scale(0.97);
+  transition-duration: 0.08s;
+}
+:is(main, header) input:not([type="checkbox"]):not([type="radio"]),
+:is(main, header) select {
+  transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+}
+tbody tr { transition: background-color 0.15s; }
+
+@media (hover: hover) {
+  :is(main, header) :is(button, a)[class*="rounded-full"]:hover:not(:disabled):not([class*="hover:-translate"]) {
+    transform: translateY(-1px);
+  }
+  main :is(button, a)[class*="bg-brand"]:hover:not(:disabled) {
+    box-shadow: 0 10px 20px -12px rgb(22 99 224 / 0.75);
+  }
+  tbody tr:hover { background-color: #f2f6fc; }
+}
+
+/* Movimento reduzido: sem deslocamento nem escala; entradas viram fade curto e o feedback de cor continua. */
+@media (prefers-reduced-motion: reduce) {
+  .rise, .stagger > *, .pop, details[open] > div.absolute { animation-name: fade-in; animation-duration: 0.15s; animation-delay: 0s; }
+  .stagger > :nth-child(n) { animation-delay: 0s; }
+  :is(main, header) :is(button, a)[class*="rounded-full"]:active:not(:disabled) { transform: none; opacity: 0.85; }
+  main [class*="hover:-translate-y"]:hover { transform: none; translate: none; }
+}
