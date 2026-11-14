@@ -7,8 +7,8 @@ export default async function PerfilPage() {
   if (!profile) return null;
   return (
     <div className="max-w-lg">
-      <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Meu perfil</h1>
-      <p className="mb-6 text-sm text-muted">
+      <h1 className="mb-2 t-title text-brand-dark">Meu perfil</h1>
+      <p className="t-lead mb-6 text-muted">
         Escolha como você quer ser chamado(a). É esse nome que aparece nas saudações do sistema.
       </p>
       <PerfilForm

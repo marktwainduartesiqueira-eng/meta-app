@@ -7,8 +7,8 @@ export default async function ImportarHistoricoPage() {
   if (profile?.papel !== "admin") redirect("/");
   return (
     <div className="max-w-3xl">
-      <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Importar histórico</h1>
-      <p className="mb-6 text-sm text-muted">
+      <h1 className="mb-2 t-title text-brand-dark">Importar histórico</h1>
+      <p className="t-lead mb-6 text-muted">
         Carrega uma planilha “Dados Compilados” de uma edição para o banco de notas. Reimportar a mesma edição
         atualiza os registros existentes.
       </p>

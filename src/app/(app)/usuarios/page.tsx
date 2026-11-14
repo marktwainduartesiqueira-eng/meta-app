@@ -58,19 +58,19 @@ export default async function UsuariosPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Usuários</h1>
-        <p className="text-sm text-muted">Quem se cadastra pelo “Primeiro acesso” fica aguardando aqui até você aprovar.</p>
+        <h1 className="mb-2 t-title text-brand-dark">Usuários</h1>
+        <p className="t-lead text-muted">Quem se cadastra pelo “Primeiro acesso” fica aguardando aqui até você aprovar.</p>
       </div>
 
       <section>
-        <h2 className="mb-2 font-display text-lg font-extrabold text-brand-dark">
+        <h2 className="t-section mb-3 text-brand-dark">
           Aguardando aprovação / desativados ({aguardando.length})
         </h2>
         {aguardando.length ? <Table list={aguardando} pendente /> : <p className="text-sm text-muted">Ninguém aguardando.</p>}
       </section>
 
       <section>
-        <h2 className="mb-2 font-display text-lg font-extrabold text-brand-dark">Equipe ativa ({ativos.length})</h2>
+        <h2 className="t-section mb-3 text-brand-dark">Equipe ativa ({ativos.length})</h2>
         <Table list={ativos} pendente={false} />
       </section>
     </div>

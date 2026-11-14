@@ -28,20 +28,20 @@ export default async function Pesquisa({
 
   return (
     <div>
-      <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Pesquisa de faculdades</h1>
-      <p className="mb-8 text-sm text-muted">
+      <h1 className="mb-2 t-title text-brand-dark">Pesquisa de faculdades</h1>
+      <p className="t-lead mb-8 text-muted">
         Referência por edição = nota do último aprovado (ou a nota de corte, quando não houver).
       </p>
 
       <form>
         <div className="border-t border-border py-6">
-          <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-muted">Aluno</h2>
+          <h2 className="t-caps mb-4 text-muted">Aluno</h2>
           <div className="grid gap-4 sm:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
             <label className="text-sm font-bold text-brand-dark">
               Nota do aluno
-              <input name="nota" defaultValue={sp.nota ?? ""} placeholder="ex.: 745,3" className={`${input} mt-1 !border-brand bg-white text-xl font-bold`} />
+              <input name="nota" defaultValue={sp.nota ?? ""} placeholder="ex.: 745,3" className={`${input} mt-1 !border-brand bg-white tabular text-xl font-bold`} />
             </label>
-            <label className="text-sm font-medium">
+            <label className="text-sm font-semibold">
               Nome do aluno(a)
               <input name="nome" defaultValue={sp.nome ?? ""} placeholder="para o PDF" className={`${input} mt-1`} />
             </label>
@@ -49,9 +49,9 @@ export default async function Pesquisa({
         </div>
 
         <div className="border-t border-border py-6">
-          <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-muted">Filtros</h2>
+          <h2 className="t-caps mb-4 text-muted">Filtros</h2>
           <div className="grid gap-4 sm:grid-cols-[9rem_minmax(0,1fr)] md:grid-cols-[9rem_minmax(0,1fr)_14rem]">
-            <label className="text-sm font-medium">
+            <label className="text-sm font-semibold">
               Modalidade
               <select name="modalidade" defaultValue={modalidade} className={`${input} mt-1`}>
                 {MODALIDADES.map((m) => (
@@ -59,11 +59,11 @@ export default async function Pesquisa({
                 ))}
               </select>
             </label>
-            <div className="text-sm font-medium">
+            <div className="text-sm font-semibold">
               Estados (um ou mais)
               <EstadosSelect initial={sp.uf ?? ""} />
             </div>
-            <label className="text-sm font-medium sm:col-span-2 md:col-span-1">
+            <label className="text-sm font-semibold sm:col-span-2 md:col-span-1">
               IES (nome, cidade ou código)
               <input name="q" defaultValue={q} className={`${input} mt-1`} />
             </label>
@@ -82,8 +82,8 @@ export default async function Pesquisa({
       <div className="border-t border-border pt-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <h2 className="text-sm font-bold uppercase tracking-wider text-muted">Resultados</h2>
-            <p className="mt-1 text-sm text-muted">
+            <h2 className="t-caps text-muted">Resultados</h2>
+            <p className="mt-1 text-sm text-muted tabular">
               {total > list.length
                 ? `Mostrando as ${list.length} melhores opções de ${total} em ${modalidade}${nota === null ? " (informe a nota para ordenar por chance)" : ""}`
                 : `${total} resultado(s) em ${modalidade}`}
@@ -102,7 +102,7 @@ export default async function Pesquisa({
               <div>
                 <Link
                   href={`/curso/${c.id}?modalidade=${encodeURIComponent(modalidade)}${nota !== null ? `&nota=${nota}` : ""}`}
-                  className="-my-3 inline-block py-3 font-display text-lg font-extrabold leading-snug text-brand hover:underline"
+                  className="-my-3 inline-block py-3 t-item text-brand hover:underline"
                 >
                   {c.info.ies_nome}
                 </Link>

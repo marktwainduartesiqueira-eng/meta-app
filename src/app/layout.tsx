@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  axes: ["opsz"],
 });
 
 const display = Plus_Jakarta_Sans({

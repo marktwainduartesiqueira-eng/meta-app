@@ -28,6 +28,12 @@
   --color-sun: #ffb800;
 }
 
+/* Escala de apoio: o menor texto do app é 13px (antes 12px). */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+}
+
 @keyframes floaty {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
@@ -43,6 +49,9 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
+  font-optical-sizing: auto;
+  font-feature-settings: "calt", "kern";
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Toque e telas estreitas: alvos de 44px e fonte de 16px nos campos (o iOS dá zoom abaixo disso). */
@@ -74,13 +83,62 @@ body {
   }
 }
 
-/* Títulos: uma família e um tracking só em todas as telas. */
-h1, h2, h3 {
-  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
+/* Títulos: uma família e um tracking base; os papéis abaixo refinam. */
+@layer base {
+  h1, h2, h3 {
+    font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  table { font-variant-numeric: tabular-nums; }
 }
-p { text-wrap: pretty; }
+
+/* Papéis tipográficos (Operate: escala fixa, poucos papéis). Jakarta 800 só nos títulos; Inter no resto. */
+@utility t-title {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+@utility t-headline {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 1rem + 2.6vw, 2.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+@utility t-section {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+@utility t-item {
+  font-family: var(--font-jakarta), var(--font-inter), sans-serif;
+  font-weight: 800;
+  font-size: 1.125rem;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+}
+@utility t-lead {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  max-width: 62ch;
+}
+@utility t-caps {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
 
 /* Foco visível em tudo que é clicável ou digitável. */
 :focus-visible {

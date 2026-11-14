@@ -73,10 +73,10 @@ export default async function Home() {
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
               <Sparkles size={14} className="text-sun" /> Assessoria FIES · Metta Estudantil
             </span>
-            <h1 className="mt-4 font-display text-2xl font-extrabold leading-tight [overflow-wrap:anywhere] sm:text-4xl">
+            <h1 className="t-headline mt-4 [overflow-wrap:anywhere]">
               {greeting()}, <span className="text-sun">{profile ? displayName(profile) : ""}</span>!
             </h1>
-            <p className="mt-3 max-w-xl text-base text-white/85 sm:text-lg">{phrase}</p>
+            <p className="t-lead mt-3 max-w-xl leading-[1.7] tracking-[0.006em] text-white/85">{phrase}</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/pesquisa" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-extrabold text-brand-dark transition hover:-translate-y-0.5 hover:shadow-lg">
                 Começar uma pesquisa <ArrowRight size={16} />
@@ -100,7 +100,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="rounded-xl bg-white p-3 text-brand-dark">
-                <div className="text-xs font-semibold uppercase text-muted">Edições no banco</div>
+                <div className="t-caps text-muted">Edições no banco</div>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {(editions.length ? editions : ["—"]).map((e) => (
                     <span key={e} className="rounded-full bg-sun px-2.5 py-0.5 text-xs font-extrabold">{e}</span>
@@ -119,7 +119,7 @@ export default async function Home() {
             <s.icon className="absolute -right-2 -top-2 opacity-15" size={86} />
             <div className="relative">
               <div className="text-sm font-semibold opacity-80">{s.label}</div>
-              <div className="font-display mt-1 text-4xl font-extrabold text-brand">{s.value.toLocaleString("pt-BR")}</div>
+              <div className="font-display tabular mt-1 text-4xl font-extrabold tracking-tight text-brand">{s.value.toLocaleString("pt-BR")}</div>
               <div className="mt-1 text-xs opacity-75">{s.sub}</div>
             </div>
           </div>
@@ -128,14 +128,14 @@ export default async function Home() {
 
       {/* Atalhos */}
       <section>
-        <h2 className="font-display mb-4 text-xl font-extrabold text-brand-dark sm:text-2xl">O que vamos fazer hoje?</h2>
+        <h2 className="t-section mb-4 text-brand-dark">O que vamos fazer hoje?</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {actions.map((a) => (
             <Link key={a.title} href={a.href} className={`group flex flex-col rounded-2xl p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${a.tone}`}>
               <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/10">
                 <a.icon size={24} />
               </span>
-              <h3 className="font-display text-lg font-extrabold leading-snug">{a.title}</h3>
+              <h3 className="t-item">{a.title}</h3>
               <p className="mt-1 flex-1 text-sm opacity-85">{a.text}</p>
               <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold">
                 Abrir <ArrowRight size={15} className="transition group-hover:translate-x-1" />
@@ -147,13 +147,13 @@ export default async function Home() {
 
       {/* Passo a passo */}
       <section className="rounded-3xl border border-border bg-card p-6 sm:p-8">
-        <h2 className="font-display mb-5 text-xl font-extrabold text-brand-dark">Do atendimento ao relatório, em 3 passos</h2>
+        <h2 className="t-section mb-5 text-brand-dark">Do atendimento ao relatório, em 3 passos</h2>
         <div className="grid gap-5 md:grid-cols-3">
           {steps.map((s) => (
             <div key={s.n} className="flex gap-4">
               <span className="font-display flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sun text-lg font-black text-brand-dark">{s.n}</span>
               <div>
-                <div className="font-display font-extrabold text-brand-dark">{s.t}</div>
+                <div className="t-item text-brand-dark">{s.t}</div>
                 <p className="text-sm text-muted">{s.d}</p>
               </div>
             </div>

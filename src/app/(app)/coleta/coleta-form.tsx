@@ -228,17 +228,17 @@ export default function ColetaForm() {
   return (
     <div className="space-y-6">
       <div className="grid gap-5 rounded-2xl border border-border bg-card p-6 md:grid-cols-3">
-        <label className="text-sm font-medium">
+        <label className="text-sm font-semibold">
           1. Planilha-base (Tabela Modelo.xlsx)
           <input type="file" accept=".xlsx" className={fileInput} onChange={(e) => setTplFile(e.target.files?.[0] ?? null)} />
         </label>
-        <label className="text-sm font-medium">
+        <label className="text-sm font-semibold">
           2. Planilhas brutas do MEC (uma ou mais)
           <input type="file" accept=".xlsx" multiple className={fileInput} onChange={(e) => setRawFiles([...(e.target.files ?? [])])} />
           <span className="mt-1 block text-xs font-normal text-muted">Tabela 1 e Tabela 2 da mesma modalidade são consolidadas.</span>
         </label>
         <div className="flex flex-col justify-between gap-3">
-          <label className="text-sm font-medium">
+          <label className="text-sm font-semibold">
             Edição
             <input value={edition} onChange={(e) => setEdition(e.target.value)} placeholder="ex.: 2026.2" className="mt-1 w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base" />
           </label>

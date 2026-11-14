@@ -74,23 +74,23 @@ export default function LoginPage() {
       <Image src="/brand/logo.png" alt="Metta Estudantil" width={603} height={300} className="h-24 w-auto sm:h-28" priority />
       <form onSubmit={submit} className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl sm:p-8">
         <div className="mb-6 text-center">
-          <h1 className="text-xl font-bold text-brand-dark">Assessoria FIES</h1>
+          <h1 className="t-section text-brand-dark">Assessoria FIES</h1>
           <p className="text-sm text-muted">Acesso restrito à equipe</p>
         </div>
 
         {mode === "criar" && (
           <>
-            <label className="mb-3 block text-sm font-medium">
+            <label className="mb-3 block text-sm font-semibold">
               Nome completo
               <input className={`${input} mt-1`} value={nome} onChange={(e) => setNome(e.target.value)} required />
             </label>
-            <label className="mb-3 block text-sm font-medium">
+            <label className="mb-3 block text-sm font-semibold">
               Como você quer ser chamado(a)?
               <input className={`${input} mt-1`} value={apelido} onChange={(e) => setApelido(e.target.value)} maxLength={40} placeholder="ex.: Ana Beatriz" required />
             </label>
           </>
         )}
-        <label className="mb-3 block text-sm font-medium">
+        <label className="mb-3 block text-sm font-semibold">
           E-mail
           <input
             type="email"
@@ -100,7 +100,7 @@ export default function LoginPage() {
             required
           />
         </label>
-        <label className="mb-4 block text-sm font-medium">
+        <label className="mb-4 block text-sm font-semibold">
           Senha
           <input
             type="password"

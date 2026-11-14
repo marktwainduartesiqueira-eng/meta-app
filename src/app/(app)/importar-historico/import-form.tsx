@@ -167,7 +167,7 @@ export default function ImportForm() {
 
   return (
     <div className="space-y-5 rounded-2xl border border-border bg-card p-6">
-      <label className="block text-sm font-medium">
+      <label className="block text-sm font-semibold">
         Planilha “Dados Compilados” (.xlsx)
         <input
           type="file"
@@ -186,7 +186,7 @@ export default function ImportForm() {
               .map(([k, v]) => `${k}: ${v}`)
               .join(" · ")}
           </div>
-          <label className="block w-40 text-sm font-medium">
+          <label className="block w-40 text-sm font-semibold">
             Edição
             <input
               value={edition}

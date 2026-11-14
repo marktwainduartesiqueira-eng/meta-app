@@ -62,14 +62,14 @@ export default async function CursoPage({
     <div className="space-y-6">
       <Link href="/pesquisa" className="text-sm text-brand hover:underline">← Voltar à pesquisa</Link>
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">{head.ies_nome}</h1>
+        <h1 className="t-title text-brand-dark">{head.ies_nome}</h1>
         <p className="text-sm text-muted">
           {head.campus} · {head.municipio}/{head.uf} · {head.regiao} · IES {head.ies_codigo}
         </p>
       </div>
 
       <form className="flex flex-wrap items-end gap-4 border-t border-border pt-6">
-        <label className="text-sm font-medium">
+        <label className="text-sm font-semibold">
           Modalidade
           <select name="modalidade" defaultValue={modalidade} className="mt-1 block rounded-xl border border-border bg-white px-3.5 py-2.5 text-base">
             {MODALIDADES.map((m) => (
@@ -77,7 +77,7 @@ export default async function CursoPage({
             ))}
           </select>
         </label>
-        <label className="text-sm font-medium">
+        <label className="text-sm font-semibold">
           Nota do aluno
           <input name="nota" defaultValue={sp.nota ?? ""} className="mt-1 block w-32 rounded-xl border border-border bg-white px-3.5 py-2.5 text-base" />
         </label>
@@ -92,7 +92,7 @@ export default async function CursoPage({
       {alunoNota !== null && <p className="text-sm text-muted">{res.explicacao} Estimativa histórica, sem garantia de aprovação.</p>}
 
       <div className="border-t border-border pt-6">
-        <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Histórico de notas — {modalidade}</h2>
+        <h2 className="t-caps mb-3 text-muted">Histórico de notas — {modalidade}</h2>
         {mine.length ? <HistoryChart data={chart} /> : <p className="text-sm text-muted">Sem registros nesta modalidade.</p>}
       </div>
 
