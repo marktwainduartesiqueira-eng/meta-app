@@ -67,11 +67,11 @@ export default function LoginPage() {
   }
 
   const input =
-    "w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20";
+    "w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base outline-none focus:border-brand focus:ring-2 focus:ring-brand/20";
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-brand-dark px-4 py-6">
-      <Image src="/brand/logo.jpg" alt="Metta Estudantil" width={618} height={383} className="h-28 w-auto sm:h-36" priority />
+      <Image src="/brand/logo.jpg" alt="Metta Estudantil" width={618} height={383} className="h-28 w-auto rounded-2xl sm:h-36" priority />
       <form onSubmit={submit} className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl sm:p-8">
         <div className="mb-6 text-center">
           <h1 className="text-xl font-bold text-brand-dark">Assessoria FIES</h1>
@@ -117,7 +117,7 @@ export default function LoginPage() {
 
         <button
           disabled={loading}
-          className="w-full rounded-lg bg-brand py-2.5 text-sm font-semibold text-white transition hover:bg-brand/90 disabled:opacity-60"
+          className="w-full rounded-full bg-brand py-3 text-sm font-bold text-white transition hover:bg-brand/90 disabled:opacity-60"
         >
           {loading ? "Aguarde…" : mode === "entrar" ? "Entrar" : "Criar conta"}
         </button>
@@ -125,7 +125,7 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={() => setMode(mode === "entrar" ? "criar" : "entrar")}
-          className="mt-4 w-full text-center text-xs text-muted hover:text-brand"
+          className="mt-4 w-full rounded-full border border-border-strong py-2.5 text-center text-sm font-semibold text-brand transition hover:bg-brand/5"
         >
           {mode === "entrar" ? "Primeiro acesso? Criar conta" : "Já tenho conta"}
         </button>

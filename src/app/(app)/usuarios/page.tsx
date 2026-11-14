@@ -26,26 +26,26 @@ export default async function UsuariosPage() {
   const fmt = (d: string) => new Date(d).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" });
 
   const Table = ({ list, pendente }: { list: Row[]; pendente: boolean }) => (
-    <div className="overflow-x-auto rounded-xl border border-border bg-card">
+    <div className="scroll-shadow overflow-x-auto rounded-2xl border border-border bg-card">
       <table className="w-full text-sm">
-        <thead className="bg-white text-left text-xs text-muted">
+        <thead className="bg-brand-dark text-left text-sm text-white">
           <tr>
-            <th className="px-3 py-2">Nome</th>
-            <th className="px-3 py-2">E-mail</th>
-            <th className="px-3 py-2">Cadastro</th>
-            <th className="px-3 py-2">Ação</th>
+            <th className="px-4 py-3">Nome</th>
+            <th className="px-4 py-3">E-mail</th>
+            <th className="px-4 py-3">Cadastro</th>
+            <th className="px-4 py-3">Ação</th>
           </tr>
         </thead>
         <tbody>
           {list.map((u) => (
             <tr key={u.id} className="border-t border-border">
-              <td className="px-3 py-2">
+              <td className="px-4 py-3">
                 <div className="font-medium">{u.nome || "—"}</div>
                 {u.apelido && <div className="text-xs text-muted">“{u.apelido}”</div>}
               </td>
-              <td className="px-3 py-2">{u.email}</td>
-              <td className="px-3 py-2 whitespace-nowrap">{fmt(u.created_at)}</td>
-              <td className="px-3 py-2">
+              <td className="px-4 py-3">{u.email}</td>
+              <td className="px-4 py-3 whitespace-nowrap">{fmt(u.created_at)}</td>
+              <td className="px-4 py-3">
                 {u.id === me.id ? <span className="text-xs text-muted">Você</span> : <UserActions id={u.id} ativo={u.ativo} papel={u.papel} pendente={pendente} />}
               </td>
             </tr>
@@ -58,7 +58,7 @@ export default async function UsuariosPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-1 text-2xl font-bold text-brand-dark">Usuários</h1>
+        <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Usuários</h1>
         <p className="text-sm text-muted">Quem se cadastra pelo “Primeiro acesso” fica aguardando aqui até você aprovar.</p>
       </div>
 

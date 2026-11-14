@@ -15,7 +15,7 @@ export default function UserActions({ id, ativo, papel, pendente }: { id: string
     });
   }
 
-  const btn = "rounded-lg px-3 py-1.5 text-xs font-semibold disabled:opacity-50";
+  const btn = "rounded-full px-4 py-2 text-sm font-bold disabled:opacity-50";
   return (
     <div className="flex flex-wrap items-center gap-2">
       {ativo ? (
@@ -24,7 +24,7 @@ export default function UserActions({ id, ativo, papel, pendente }: { id: string
             value={papel}
             disabled={pending}
             onChange={(e) => run({ papel: e.target.value as "admin" | "consultor" })}
-            className="rounded-lg border border-border bg-white px-2 py-1.5 text-xs"
+            className="rounded-xl border border-border bg-white px-3 py-2 text-sm"
           >
             <option value="consultor">Consultor</option>
             <option value="admin">Admin</option>
@@ -38,7 +38,7 @@ export default function UserActions({ id, ativo, papel, pendente }: { id: string
           {pendente ? "Aprovar" : "Reativar"}
         </button>
       )}
-      {erro && <span className="text-xs text-red-700">{erro}</span>}
+      {erro && <span className="text-sm text-red-700">{erro}</span>}
     </div>
   );
 }

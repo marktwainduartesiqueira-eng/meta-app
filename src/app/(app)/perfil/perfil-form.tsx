@@ -25,7 +25,7 @@ export default function PerfilForm({ id, nome, apelido, email, preview }: { id: 
     router.refresh();
   }
 
-  const input = "mt-1 w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20";
+  const input = "mt-1 w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base outline-none focus:border-brand focus:ring-2 focus:ring-brand/20";
   return (
     <form onSubmit={save} className="space-y-4 rounded-2xl border border-border bg-card p-6">
       <label className="block text-sm font-medium">
@@ -42,7 +42,7 @@ export default function PerfilForm({ id, nome, apelido, email, preview }: { id: 
         <input value={email} disabled className={`${input} bg-slate-50 text-muted`} />
       </label>
       {msg && <p className="rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-800">{msg}</p>}
-      <button disabled={busy} className="rounded-lg bg-brand px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-60">
+      <button disabled={busy} className="rounded-full bg-brand px-7 py-2.5 text-sm font-bold text-white disabled:opacity-60">
         {busy ? "Salvando…" : "Salvar"}
       </button>
     </form>

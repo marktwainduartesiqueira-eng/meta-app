@@ -43,17 +43,17 @@ export default async function Home() {
   const editions = (eds.data ?? []).map((e) => e.codigo as string);
 
   const stats = [
-    { label: "Edições no banco", value: eds.count ?? 0, icon: Database, tone: "bg-brand text-white", sub: editions.join(" · ") || "nenhuma ainda" },
-    { label: "Instituições (IES)", value: ies.count ?? 0, icon: Building2, tone: "bg-sun text-brand-dark", sub: "faculdades de Medicina" },
+    { label: "Edições no banco", value: eds.count ?? 0, icon: Database, tone: "bg-white text-brand-dark border border-border", sub: editions.join(" · ") || "nenhuma ainda" },
+    { label: "Instituições (IES)", value: ies.count ?? 0, icon: Building2, tone: "bg-white text-brand-dark border border-border", sub: "faculdades de Medicina" },
     { label: "Cursos e campi", value: cursos.count ?? 0, icon: MapPin, tone: "bg-white text-brand-dark border border-border", sub: "em todo o Brasil" },
-    { label: "Registros de notas", value: regs.count ?? 0, icon: BarChart3, tone: "bg-brand-dark text-white", sub: "histórico por modalidade" },
+    { label: "Registros de notas", value: regs.count ?? 0, icon: BarChart3, tone: "bg-white text-brand-dark border border-border", sub: "histórico por modalidade" },
   ];
 
   const actions = [
-    { href: "/pesquisa", title: "Pesquisar faculdades", text: "Filtre por nota, modalidade e região e veja o histórico de cada curso.", icon: Search, tone: "bg-sun text-brand-dark", show: true },
+    { href: "/pesquisa", title: "Pesquisar faculdades", text: "Filtre por nota, modalidade e região e veja o histórico de cada curso.", icon: Search, tone: "bg-brand text-white", show: true },
     { href: "/pesquisa", title: "Gerar relatório PDF", text: "Monte um relatório com a marca da Metta para o aluno levar para casa.", icon: FileText, tone: "bg-white text-brand-dark border border-border", show: true },
-    { href: "/coleta", title: "Coleta de dados", text: "Transforme as planilhas brutas do MEC na Tabela Modelo, com revisão.", icon: ClipboardCheck, tone: "bg-brand text-white", show: true },
-    { href: "/importar-historico", title: "Importar histórico", text: "Adicione ao banco as notas de uma edição já compilada.", icon: UploadCloud, tone: "bg-brand-dark text-white", show: isAdmin },
+    { href: "/coleta", title: "Coleta de dados", text: "Transforme as planilhas brutas do MEC na Tabela Modelo, com revisão.", icon: ClipboardCheck, tone: "bg-white text-brand-dark border border-border", show: true },
+    { href: "/importar-historico", title: "Importar histórico", text: "Adicione ao banco as notas de uma edição já compilada.", icon: UploadCloud, tone: "bg-white text-brand-dark border border-border", show: isAdmin },
   ].filter((a) => a.show);
 
   const steps = [
@@ -65,31 +65,30 @@ export default async function Home() {
   return (
     <div className="space-y-8">
       {/* Boas-vindas */}
-      <section className="relative overflow-hidden rounded-3xl bg-brand-dark px-5 py-8 text-white sm:px-10 sm:py-12">
-        <div className="pointer-events-none absolute -left-14 -top-16 h-28 w-28 rounded-full bg-sun sm:-left-10 sm:-top-12 sm:h-44 sm:w-44" />
+      <section className="relative overflow-hidden rounded-3xl bg-brand-dark px-5 py-8 text-white sm:px-10 sm:py-10">
+        <div className="pointer-events-none absolute -left-14 -top-16 h-28 w-28 rounded-full bg-sun sm:-left-12 sm:-top-14 sm:h-32 sm:w-32" />
         <div className="pointer-events-none absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-brand/70" />
-        <div className="pointer-events-none absolute -bottom-10 -right-10 h-52 w-52 rounded-[3rem] bg-sun/90 rotate-12" />
         <div className="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
           <div className="min-w-0 pt-6 sm:pt-0 sm:pl-16">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
               <Sparkles size={14} className="text-sun" /> Assessoria FIES · Metta Estudantil
             </span>
-            <h1 className="mt-4 font-display text-2xl font-black leading-tight [overflow-wrap:anywhere] sm:text-5xl">
+            <h1 className="mt-4 font-display text-2xl font-extrabold leading-tight [overflow-wrap:anywhere] sm:text-4xl">
               {greeting()}, <span className="text-sun">{profile ? displayName(profile) : ""}</span>!
             </h1>
             <p className="mt-3 max-w-xl text-base text-white/85 sm:text-lg">{phrase}</p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/pesquisa" className="inline-flex items-center gap-2 rounded-xl bg-sun px-5 py-3 text-sm font-extrabold text-brand-dark transition hover:-translate-y-0.5 hover:shadow-lg">
+              <Link href="/pesquisa" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-extrabold text-brand-dark transition hover:-translate-y-0.5 hover:shadow-lg">
                 Começar uma pesquisa <ArrowRight size={16} />
               </Link>
-              <Link href="/coleta" className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-5 py-3 text-sm font-bold transition hover:bg-white/10">
+              <Link href="/coleta" className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-bold transition hover:bg-white/10">
                 Abrir a coleta
               </Link>
             </div>
           </div>
 
           {/* Cartão no estilo dos posts da Metta */}
-          <div className="floaty relative mx-auto w-full max-w-xs">
+          <div className="relative mx-auto w-full max-w-xs">
             <div className="rounded-2xl border border-white/20 bg-white/10 p-5 backdrop-blur">
               <div className="mb-3 flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-sun text-brand-dark">
@@ -101,7 +100,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="rounded-xl bg-white p-3 text-brand-dark">
-                <div className="text-[11px] font-semibold uppercase text-muted">Edições no banco</div>
+                <div className="text-xs font-semibold uppercase text-muted">Edições no banco</div>
                 <div className="mt-1 flex flex-wrap gap-1.5">
                   {(editions.length ? editions : ["—"]).map((e) => (
                     <span key={e} className="rounded-full bg-sun px-2.5 py-0.5 text-xs font-extrabold">{e}</span>
@@ -120,7 +119,7 @@ export default async function Home() {
             <s.icon className="absolute -right-2 -top-2 opacity-15" size={86} />
             <div className="relative">
               <div className="text-sm font-semibold opacity-80">{s.label}</div>
-              <div className="font-display mt-1 text-4xl font-black">{s.value.toLocaleString("pt-BR")}</div>
+              <div className="font-display mt-1 text-4xl font-extrabold text-brand">{s.value.toLocaleString("pt-BR")}</div>
               <div className="mt-1 text-xs opacity-75">{s.sub}</div>
             </div>
           </div>
@@ -129,10 +128,10 @@ export default async function Home() {
 
       {/* Atalhos */}
       <section>
-        <h2 className="font-display mb-4 text-xl font-extrabold text-brand-dark">O que vamos fazer hoje?</h2>
+        <h2 className="font-display mb-4 text-xl font-extrabold text-brand-dark sm:text-2xl">O que vamos fazer hoje?</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {actions.map((a) => (
-            <Link key={a.title} href={a.href} className={`group flex flex-col rounded-3xl p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${a.tone}`}>
+            <Link key={a.title} href={a.href} className={`group flex flex-col rounded-2xl p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${a.tone}`}>
               <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/10">
                 <a.icon size={24} />
               </span>

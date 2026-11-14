@@ -23,26 +23,26 @@ export default async function Pesquisa({
   const supabase = await createClient();
   const { modalidade, nota, editions, list, total, error } = await runSearch(supabase, sp);
 
-  const input = "w-full rounded-lg border border-border bg-white px-3 py-2 text-sm";
+  const input = "w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base";
   const pdfHref = `/api/relatorio?${new URLSearchParams(Object.entries(sp).filter(([, v]) => v) as [string, string][]).toString()}`;
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold text-brand-dark">Pesquisa de faculdades</h1>
-      <p className="mb-5 text-sm text-muted">
+      <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Pesquisa de faculdades</h1>
+      <p className="mb-6 text-sm text-muted">
         Referência por edição = nota do último aprovado (ou a nota de corte, quando não houver).
       </p>
 
-      <form className="mb-6 grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-        <label className="text-xs font-medium">
+      <form className="mb-8 grid gap-4 rounded-2xl border border-border bg-card p-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <label className="text-sm font-medium">
           Nome do aluno(a)
           <input name="nome" defaultValue={sp.nome ?? ""} placeholder="para o PDF" className={`${input} mt-1`} />
         </label>
-        <label className="text-xs font-medium">
+        <label className="text-sm font-bold text-brand-dark">
           Nota do aluno
-          <input name="nota" defaultValue={sp.nota ?? ""} placeholder="ex.: 745,3" className={`${input} mt-1`} />
+          <input name="nota" defaultValue={sp.nota ?? ""} placeholder="ex.: 745,3" className={`${input} mt-1 !border-brand bg-brand/5 text-xl font-bold`} />
         </label>
-        <label className="text-xs font-medium">
+        <label className="text-sm font-medium">
           Modalidade
           <select name="modalidade" defaultValue={modalidade} className={`${input} mt-1`}>
             {MODALIDADES.map((m) => (
@@ -50,11 +50,11 @@ export default async function Pesquisa({
             ))}
           </select>
         </label>
-        <div className="text-xs font-medium lg:col-span-2">
+        <div className="text-sm font-medium lg:col-span-2">
           Estados (um ou mais)
           <EstadosSelect initial={sp.uf ?? ""} />
         </div>
-        <label className="text-xs font-medium">
+        <label className="text-sm font-medium">
           IES (nome, cidade ou código)
           <input name="q" defaultValue={q} className={`${input} mt-1`} />
         </label>
@@ -62,28 +62,28 @@ export default async function Pesquisa({
           <label className="flex items-center gap-2 text-xs">
             <input type="checkbox" name="so_chances" value="1" defaultChecked={!!sp.so_chances} /> Só chance Alta/Média
           </label>
-          <button className="ml-auto rounded-lg bg-brand px-6 py-2 text-sm font-semibold text-white">Pesquisar</button>
+          <button className="ml-auto rounded-full bg-brand px-8 py-2.5 text-sm font-bold text-white transition hover:bg-brand/90">Pesquisar</button>
         </div>
       </form>
 
       {error && <p className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">Erro na consulta: {error}</p>}
 
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-muted">
           {total > list.length
             ? `Mostrando as ${list.length} melhores opções de ${total} em ${modalidade}${nota === null ? " (informe a nota para ordenar por chance)" : ""}`
             : `${total} resultado(s) em ${modalidade}`}
         </p>
         {list.length > 0 && (
-          <a href={pdfHref} target="_blank" className="inline-flex min-h-11 items-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-brand-dark sm:min-h-0">
+          <a href={pdfHref} target="_blank" className="inline-flex min-h-11 items-center rounded-full border-2 border-brand bg-white px-5 py-2 text-sm font-bold text-brand transition hover:bg-brand hover:text-white sm:min-h-0">
             Gerar relatório PDF
           </a>
         )}
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((c) => (
-          <div key={c.id} className="flex flex-col rounded-xl border border-border bg-card p-4">
+          <div key={c.id} className="flex flex-col rounded-2xl border border-border bg-card p-5">
             <div className="mb-1 flex items-start justify-between gap-2">
               <Link
                 href={`/curso/${c.id}?modalidade=${encodeURIComponent(modalidade)}${nota !== null ? `&nota=${nota}` : ""}`}
@@ -92,7 +92,7 @@ export default async function Pesquisa({
                 {c.info.ies_nome}
               </Link>
               {nota !== null && (
-                <span className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${badge[c.res.chance]}`}>
+                <span className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold ${badge[c.res.chance]}`}>
                   {c.res.chance}
                 </span>
               )}

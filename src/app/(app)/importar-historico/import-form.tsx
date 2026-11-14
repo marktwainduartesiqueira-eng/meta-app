@@ -166,7 +166,7 @@ export default function ImportForm() {
   const byMod = records.reduce<Record<string, number>>((a, r) => ((a[r.modality] = (a[r.modality] ?? 0) + 1), a), {});
 
   return (
-    <div className="space-y-5 rounded-xl border border-border bg-card p-6">
+    <div className="space-y-5 rounded-2xl border border-border bg-card p-6">
       <label className="block text-sm font-medium">
         Planilha “Dados Compilados” (.xlsx)
         <input
@@ -192,13 +192,13 @@ export default function ImportForm() {
               value={edition}
               onChange={(e) => setEdition(e.target.value)}
               placeholder="2026.1"
-              className="mt-1 w-full rounded-lg border border-border px-3 py-2 text-sm"
+              className="mt-1 w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base"
             />
           </label>
           <button
             onClick={runImport}
             disabled={busy}
-            className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-brand-dark disabled:opacity-60"
+            className="rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white disabled:opacity-60"
           >
             {busy ? "Importando…" : "Importar para o banco"}
           </button>

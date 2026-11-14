@@ -227,7 +227,7 @@ export default function ColetaForm() {
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 rounded-xl border border-border bg-card p-5 md:grid-cols-3">
+      <div className="grid gap-5 rounded-2xl border border-border bg-card p-6 md:grid-cols-3">
         <label className="text-sm font-medium">
           1. Planilha-base (Tabela Modelo.xlsx)
           <input type="file" accept=".xlsx" className={fileInput} onChange={(e) => setTplFile(e.target.files?.[0] ?? null)} />
@@ -240,9 +240,9 @@ export default function ColetaForm() {
         <div className="flex flex-col justify-between gap-3">
           <label className="text-sm font-medium">
             Edição
-            <input value={edition} onChange={(e) => setEdition(e.target.value)} placeholder="ex.: 2026.2" className="mt-1 w-full rounded-lg border border-border px-3 py-2 text-sm" />
+            <input value={edition} onChange={(e) => setEdition(e.target.value)} placeholder="ex.: 2026.2" className="mt-1 w-full rounded-xl border border-border bg-white px-3.5 py-2.5 text-base" />
           </label>
-          <button onClick={process} disabled={busy || !tplFile || rawFiles.length === 0 || !edition.trim()} className="rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-50">
+          <button onClick={process} disabled={busy || !tplFile || rawFiles.length === 0 || !edition.trim()} className="rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white disabled:opacity-50">
             {busy ? "Processando…" : "Processar"}
           </button>
         </div>
@@ -260,7 +260,7 @@ export default function ColetaForm() {
             <label className="flex items-center gap-2 text-sm">
               <input type="checkbox" checked={onlyPending} onChange={(e) => setOnlyPending(e.target.checked)} /> Só pendências
             </label>
-            <button onClick={download} disabled={busy || counts.out === 0} className="ml-auto rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-brand-dark disabled:opacity-50">
+            <button onClick={download} disabled={busy || counts.out === 0} className="ml-auto rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white disabled:opacity-50">
               Baixar planilha preenchida
             </button>
           </div>
@@ -275,7 +275,7 @@ export default function ColetaForm() {
                 key={t.m}
                 onClick={() => setTab(t.m)}
                 disabled={t.total === 0}
-                className={`rounded-lg border px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-40 ${
+                className={`rounded-full border px-5 py-2 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40 ${
                   activeTab === t.m ? "border-brand bg-brand text-white" : "border-border bg-card"
                 }`}
               >
@@ -292,8 +292,8 @@ export default function ColetaForm() {
             </p>
           )}
 
-          <div className="max-h-[75dvh] overflow-auto rounded-xl border border-border bg-card">
-            <table className="w-full text-sm">
+          <div className="scroll-shadow max-h-[75dvh] overflow-auto rounded-2xl border border-border bg-card">
+            <table className="sticky-first w-full text-sm">
               <thead className="sticky top-0 z-10 bg-brand-dark text-left text-white">
                 <tr>
                   <th className={cell}>UF</th>
@@ -367,7 +367,7 @@ export default function ColetaForm() {
                             </option>
                           ))}
                         </select>
-                        <div className="mt-0.5 text-[11px] text-muted">Trocar correspondência (5 sugestões)</div>
+                        <div className="mt-0.5 text-xs text-muted">Trocar correspondência (5 sugestões)</div>
                       </td>
                       <td className={cell}>
                         {rs.length === 0 ? (

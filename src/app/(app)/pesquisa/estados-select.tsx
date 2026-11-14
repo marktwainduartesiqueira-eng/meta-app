@@ -30,7 +30,7 @@ export default function EstadosSelect({ initial }: { initial: string }) {
           <button type="button" onClick={() => setSel({})} className="mb-1 w-full rounded px-2 py-1 text-left text-xs font-semibold text-brand hover:bg-slate-50">
             Limpar seleção (todos)
           </button>
-          <p className="mb-1 px-2 text-[11px] font-normal text-muted">Marque o estado e informe quantas faculdades listar dele.</p>
+          <p className="mb-1 px-2 text-xs font-normal text-muted">Marque o estado e informe quantas faculdades listar dele.</p>
           {ESTADOS.map(([uf, nome]) => (
             <div key={uf} className="flex items-center gap-2 rounded px-2 py-1 text-sm font-normal hover:bg-slate-50">
               <label className="flex flex-1 cursor-pointer items-center gap-2">
