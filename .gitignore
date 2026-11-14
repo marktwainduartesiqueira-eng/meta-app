@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dados e credenciais locais (não versionar)
+/Tabelas/
+/CódigoGihTube/
+/Claude outputs/
+.claude/settings.local.json

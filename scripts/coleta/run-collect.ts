@@ -1,7 +1,7 @@
 // Executa o motor de coleta sobre uma planilha bruta e imprime um resumo (verificação manual).
 import XLSX from "xlsx";
 import { readFileSync } from "node:fs";
-import { collectSheet } from "../src/lib/collect/sheet";
+import { collectSheet } from "../../src/lib/collect/sheet";
 
 const file = process.argv[2];
 const wb = XLSX.read(readFileSync(file), { type: "buffer" });

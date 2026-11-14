@@ -1,6 +1,6 @@
 import XLSX from "xlsx";
 import { readFileSync } from "node:fs";
-import { parseCandidates } from "../src/lib/collect/sheet";
+import { parseCandidates } from "../../src/lib/collect/sheet";
 
 const wb = XLSX.read(readFileSync(process.argv[2]), { type: "buffer" });
 for (const name of wb.SheetNames) {

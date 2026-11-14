@@ -1,6 +1,6 @@
 import XLSX from "xlsx";
 import { readFileSync } from "node:fs";
-import { indexTemplate } from "../src/lib/collect/template";
+import { indexTemplate } from "../../src/lib/collect/template";
 
 const tpl = XLSX.read(readFileSync(process.argv[2]), { type: "buffer" });
 const idx = indexTemplate(

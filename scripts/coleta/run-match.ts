@@ -1,8 +1,8 @@
 import XLSX from "xlsx";
 import { readFileSync } from "node:fs";
-import { parseSheet } from "../src/lib/collect/sheet";
-import { buildCollections } from "../src/lib/collect/pipeline";
-import { indexTemplate, matchToTemplate } from "../src/lib/collect/template";
+import { parseSheet } from "../../src/lib/collect/sheet";
+import { buildCollections } from "../../src/lib/collect/pipeline";
+import { indexTemplate, matchToTemplate } from "../../src/lib/collect/template";
 
 const [rawFile, tplFile] = process.argv.slice(2);
 const rd = (f: string) => XLSX.read(readFileSync(f), { type: "buffer" });

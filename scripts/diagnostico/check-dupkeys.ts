@@ -1,8 +1,8 @@
 ﻿import XLSX from "xlsx";
 import { readFileSync } from "node:fs";
-import { parseCompiladoSheet } from "../src/lib/import/compilado";
+import { parseCompiladoSheet } from "../../src/lib/import/compilado";
 for (const ed of ["25.1", "25.2", "26.1"]) {
-  const wb = XLSX.read(readFileSync(`..\\Dados Compilados - FIES ${ed}.xlsx`), { type: "buffer" });
+  const wb = XLSX.read(readFileSync(`Tabelas/Dados Compilados - FIES ${ed}.xlsx`), { type: "buffer" });
   for (const name of wb.SheetNames) {
     const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, raw: true, defval: "" }) as never;
     const seen = new Map<string, string>();
