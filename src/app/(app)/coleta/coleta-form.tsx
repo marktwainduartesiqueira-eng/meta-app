@@ -292,7 +292,7 @@ export default function ColetaForm() {
             </p>
           )}
 
-          <div className="max-h-[75vh] overflow-auto rounded-xl border border-border bg-card">
+          <div className="max-h-[75dvh] overflow-auto rounded-xl border border-border bg-card">
             <table className="w-full text-sm">
               <thead className="sticky top-0 z-10 bg-brand-dark text-left text-white">
                 <tr>

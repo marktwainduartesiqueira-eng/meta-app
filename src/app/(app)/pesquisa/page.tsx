@@ -33,7 +33,7 @@ export default async function Pesquisa({
         Referência por edição = nota do último aprovado (ou a nota de corte, quando não houver).
       </p>
 
-      <form className="mb-6 grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-6">
+      <form className="mb-6 grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <label className="text-xs font-medium">
           Nome do aluno(a)
           <input name="nome" defaultValue={sp.nome ?? ""} placeholder="para o PDF" className={`${input} mt-1`} />
@@ -58,7 +58,7 @@ export default async function Pesquisa({
           IES (nome, cidade ou código)
           <input name="q" defaultValue={q} className={`${input} mt-1`} />
         </label>
-        <div className="flex items-center gap-4 sm:col-span-2 lg:col-span-6">
+        <div className="flex items-center gap-4 sm:col-span-2 lg:col-span-3 xl:col-span-6">
           <label className="flex items-center gap-2 text-xs">
             <input type="checkbox" name="so_chances" value="1" defaultChecked={!!sp.so_chances} /> Só chance Alta/Média
           </label>
@@ -68,20 +68,20 @@ export default async function Pesquisa({
 
       {error && <p className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">Erro na consulta: {error}</p>}
 
-      <div className="mb-3 flex items-center justify-between gap-3">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-muted">
           {total > list.length
             ? `Mostrando as ${list.length} melhores opções de ${total} em ${modalidade}${nota === null ? " (informe a nota para ordenar por chance)" : ""}`
             : `${total} resultado(s) em ${modalidade}`}
         </p>
         {list.length > 0 && (
-          <a href={pdfHref} target="_blank" className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-brand-dark">
+          <a href={pdfHref} target="_blank" className="inline-flex min-h-11 items-center rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-brand-dark sm:min-h-0">
             Gerar relatório PDF
           </a>
         )}
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((c) => (
           <div key={c.id} className="flex flex-col rounded-xl border border-border bg-card p-4">
             <div className="mb-1 flex items-start justify-between gap-2">

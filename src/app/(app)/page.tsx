@@ -66,11 +66,11 @@ export default async function Home() {
     <div className="space-y-8">
       {/* Boas-vindas */}
       <section className="relative overflow-hidden rounded-3xl bg-brand-dark px-5 py-8 text-white sm:px-10 sm:py-12">
-        <div className="pointer-events-none absolute -left-16 -top-20 h-40 w-40 rounded-full bg-sun sm:-left-10 sm:-top-12 sm:h-44 sm:w-44" />
+        <div className="pointer-events-none absolute -left-14 -top-16 h-28 w-28 rounded-full bg-sun sm:-left-10 sm:-top-12 sm:h-44 sm:w-44" />
         <div className="pointer-events-none absolute -bottom-24 right-24 h-64 w-64 rounded-full bg-brand/70" />
         <div className="pointer-events-none absolute -bottom-10 -right-10 h-52 w-52 rounded-[3rem] bg-sun/90 rotate-12" />
         <div className="relative grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
-          <div className="min-w-0 pl-0 sm:pl-16">
+          <div className="min-w-0 pt-6 sm:pt-0 sm:pl-16">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
               <Sparkles size={14} className="text-sun" /> Assessoria FIES · Metta Estudantil
             </span>

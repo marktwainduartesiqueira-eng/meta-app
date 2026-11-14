@@ -9,7 +9,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (!profile || !profile.ativo) {
     // Não redireciona para /login: o proxy devolveria para cá e criaria um laço.
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
+      <div className="flex min-h-dvh flex-col items-center justify-center gap-4 px-4 text-center">
         <p className="max-w-sm text-sm text-muted">
           {profile
             ? "Seu cadastro está aguardando a aprovação de um administrador (ou a conta foi desativada). Assim que for liberado, é só entrar de novo."
@@ -42,7 +42,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   ];
 
   return (
-    <div className="flex min-h-screen flex-col overflow-x-clip">
+    <div className="flex min-h-dvh flex-col overflow-x-clip">
       <header className="bg-brand-dark text-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-1 px-4 py-2 sm:py-3">
           <Link href="/" aria-label="Metta Estudantil — início" className="shrink-0">
