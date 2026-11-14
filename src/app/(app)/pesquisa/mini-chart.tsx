@@ -26,8 +26,9 @@ export default function MiniChart({ data, aluno }: { data: MiniPoint[]; aluno: n
   const min = vals.length ? Math.floor(Math.min(...vals) - 60) : 0;
   const max = vals.length ? Math.ceil(Math.max(...vals) + 20) : 1;
   const posMax = Math.ceil(Math.max(...posOnly.map((d) => d.pos!), 1) * 1.2);
+  // Atenção: não repassar o campo `ref` às linhas do gráfico — o recharts o espalha como prop e o React o trata como "ref".
   const rows = data.map((d) => ({
-    ...d,
+    edicao: d.edicao,
     nota: d.ref ?? undefined,
     posBar: !d.ref && d.pos ? d.pos : undefined,
   }));
