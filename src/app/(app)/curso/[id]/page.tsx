@@ -68,7 +68,7 @@ export default async function CursoPage({
         </p>
       </div>
 
-      <form className="flex flex-wrap items-end gap-4 rounded-2xl border border-border bg-card p-5">
+      <form className="flex flex-wrap items-end gap-4 border-t border-border pt-6">
         <label className="text-sm font-medium">
           Modalidade
           <select name="modalidade" defaultValue={modalidade} className="mt-1 block rounded-xl border border-border bg-white px-3.5 py-2.5 text-base">
@@ -84,15 +84,15 @@ export default async function CursoPage({
         <button className="rounded-full bg-brand px-6 py-2.5 text-sm font-bold text-white transition hover:bg-brand/90">Atualizar</button>
         {alunoNota !== null && (
           <div className="ml-auto text-right">
-            <div className="text-xs text-muted">Chance estimada</div>
-            <div className="text-xl font-bold text-brand">{res.chance}</div>
+            <div className="text-sm text-muted">Chance estimada</div>
+            <div className="font-display text-2xl font-extrabold text-brand">{res.chance}</div>
           </div>
         )}
       </form>
-      {alunoNota !== null && <p className="text-xs text-muted">{res.explicacao} Estimativa histórica, sem garantia de aprovação.</p>}
+      {alunoNota !== null && <p className="text-sm text-muted">{res.explicacao} Estimativa histórica, sem garantia de aprovação.</p>}
 
-      <div className="rounded-2xl border border-border bg-card p-5">
-        <h2 className="mb-2 font-semibold">Histórico de notas — {modalidade}</h2>
+      <div className="border-t border-border pt-6">
+        <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-muted">Histórico de notas — {modalidade}</h2>
         {mine.length ? <HistoryChart data={chart} /> : <p className="text-sm text-muted">Sem registros nesta modalidade.</p>}
       </div>
 

@@ -29,93 +29,109 @@ export default async function Pesquisa({
   return (
     <div>
       <h1 className="mb-1 font-display text-2xl font-extrabold text-brand-dark sm:text-3xl">Pesquisa de faculdades</h1>
-      <p className="mb-6 text-sm text-muted">
+      <p className="mb-8 text-sm text-muted">
         Referência por edição = nota do último aprovado (ou a nota de corte, quando não houver).
       </p>
 
-      <form className="mb-8 grid gap-4 rounded-2xl border border-border bg-card p-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-        <label className="text-sm font-medium">
-          Nome do aluno(a)
-          <input name="nome" defaultValue={sp.nome ?? ""} placeholder="para o PDF" className={`${input} mt-1`} />
-        </label>
-        <label className="text-sm font-bold text-brand-dark">
-          Nota do aluno
-          <input name="nota" defaultValue={sp.nota ?? ""} placeholder="ex.: 745,3" className={`${input} mt-1 !border-brand bg-brand/5 text-xl font-bold`} />
-        </label>
-        <label className="text-sm font-medium">
-          Modalidade
-          <select name="modalidade" defaultValue={modalidade} className={`${input} mt-1`}>
-            {MODALIDADES.map((m) => (
-              <option key={m}>{m}</option>
-            ))}
-          </select>
-        </label>
-        <div className="text-sm font-medium lg:col-span-2">
-          Estados (um ou mais)
-          <EstadosSelect initial={sp.uf ?? ""} />
+      <form>
+        <div className="border-t border-border py-6">
+          <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-muted">Aluno</h2>
+          <div className="grid gap-4 sm:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
+            <label className="text-sm font-bold text-brand-dark">
+              Nota do aluno
+              <input name="nota" defaultValue={sp.nota ?? ""} placeholder="ex.: 745,3" className={`${input} mt-1 !border-brand bg-white text-xl font-bold`} />
+            </label>
+            <label className="text-sm font-medium">
+              Nome do aluno(a)
+              <input name="nome" defaultValue={sp.nome ?? ""} placeholder="para o PDF" className={`${input} mt-1`} />
+            </label>
+          </div>
         </div>
-        <label className="text-sm font-medium">
-          IES (nome, cidade ou código)
-          <input name="q" defaultValue={q} className={`${input} mt-1`} />
-        </label>
-        <div className="flex items-center gap-4 sm:col-span-2 lg:col-span-3 xl:col-span-6">
-          <label className="flex items-center gap-2 text-xs">
-            <input type="checkbox" name="so_chances" value="1" defaultChecked={!!sp.so_chances} /> Só chance Alta/Média
-          </label>
-          <button className="ml-auto rounded-full bg-brand px-8 py-2.5 text-sm font-bold text-white transition hover:bg-brand/90">Pesquisar</button>
+
+        <div className="border-t border-border py-6">
+          <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-muted">Filtros</h2>
+          <div className="grid gap-4 sm:grid-cols-[9rem_minmax(0,1fr)] md:grid-cols-[9rem_minmax(0,1fr)_14rem]">
+            <label className="text-sm font-medium">
+              Modalidade
+              <select name="modalidade" defaultValue={modalidade} className={`${input} mt-1`}>
+                {MODALIDADES.map((m) => (
+                  <option key={m}>{m}</option>
+                ))}
+              </select>
+            </label>
+            <div className="text-sm font-medium">
+              Estados (um ou mais)
+              <EstadosSelect initial={sp.uf ?? ""} />
+            </div>
+            <label className="text-sm font-medium sm:col-span-2 md:col-span-1">
+              IES (nome, cidade ou código)
+              <input name="q" defaultValue={q} className={`${input} mt-1`} />
+            </label>
+          </div>
+          <div className="mt-5 flex flex-wrap items-center gap-4">
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" name="so_chances" value="1" defaultChecked={!!sp.so_chances} /> Só chance Alta/Média
+            </label>
+            <button className="ml-auto rounded-full bg-brand px-8 py-2.5 text-sm font-bold text-white transition hover:bg-brand/90">Pesquisar</button>
+          </div>
         </div>
       </form>
 
       {error && <p className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">Erro na consulta: {error}</p>}
 
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-muted">
-          {total > list.length
-            ? `Mostrando as ${list.length} melhores opções de ${total} em ${modalidade}${nota === null ? " (informe a nota para ordenar por chance)" : ""}`
-            : `${total} resultado(s) em ${modalidade}`}
-        </p>
-        {list.length > 0 && (
-          <a href={pdfHref} target="_blank" className="inline-flex min-h-11 items-center rounded-full border-2 border-brand bg-white px-5 py-2 text-sm font-bold text-brand transition hover:bg-brand hover:text-white sm:min-h-0">
-            Gerar relatório PDF
-          </a>
+      <div className="border-t border-border pt-6">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-muted">Resultados</h2>
+            <p className="mt-1 text-sm text-muted">
+              {total > list.length
+                ? `Mostrando as ${list.length} melhores opções de ${total} em ${modalidade}${nota === null ? " (informe a nota para ordenar por chance)" : ""}`
+                : `${total} resultado(s) em ${modalidade}`}
+            </p>
+          </div>
+          {list.length > 0 && (
+            <a href={pdfHref} target="_blank" className="inline-flex min-h-11 items-center rounded-full border-2 border-brand bg-white px-5 py-2 text-sm font-bold text-brand transition hover:bg-brand hover:text-white sm:min-h-0">
+              Gerar relatório PDF
+            </a>
+          )}
+        </div>
+
+        <div className="mt-5 divide-y divide-border border-t border-border">
+          {list.map((c) => (
+            <div key={c.id} className="grid gap-4 py-6 md:grid-cols-[15rem_minmax(0,1fr)] md:items-center md:gap-8">
+              <div>
+                <Link
+                  href={`/curso/${c.id}?modalidade=${encodeURIComponent(modalidade)}${nota !== null ? `&nota=${nota}` : ""}`}
+                  className="-my-3 inline-block py-3 font-display text-lg font-extrabold leading-snug text-brand hover:underline"
+                >
+                  {c.info.ies_nome}
+                </Link>
+                <p className="mt-1 text-sm text-muted">
+                  {c.info.campus} · {c.info.uf} · cód. {c.info.ies_codigo}
+                </p>
+                {nota !== null && (
+                  <span className={`mt-3 inline-block rounded-full px-3 py-1 text-sm font-bold ${badge[c.res.chance]}`}>
+                    {c.res.chance}
+                  </span>
+                )}
+              </div>
+              <MiniChart
+                data={editions.map((e) => ({
+                  edicao: e,
+                  ref: c.byEd.get(e) ? referenceScore(c.byEd.get(e)!) : null,
+                  pos: c.byEd.get(e)?.pos_ultimo_chamado ?? null,
+                }))}
+                aluno={nota}
+              />
+            </div>
+          ))}
+        </div>
+        {list.length === 0 && !error && (
+          <p className="rounded-xl border border-border bg-card px-3 py-8 text-center text-sm text-muted">
+            Nenhum resultado para esses filtros.
+          </p>
         )}
       </div>
-
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {list.map((c) => (
-          <div key={c.id} className="flex flex-col rounded-2xl border border-border bg-card p-5">
-            <div className="mb-1 flex items-start justify-between gap-2">
-              <Link
-                href={`/curso/${c.id}?modalidade=${encodeURIComponent(modalidade)}${nota !== null ? `&nota=${nota}` : ""}`}
-                className="font-semibold leading-snug text-brand hover:underline"
-              >
-                {c.info.ies_nome}
-              </Link>
-              {nota !== null && (
-                <span className={`shrink-0 rounded-full px-3 py-1 text-sm font-bold ${badge[c.res.chance]}`}>
-                  {c.res.chance}
-                </span>
-              )}
-            </div>
-            <p className="mb-2 text-xs text-muted">
-              {c.info.campus} · {c.info.uf} · cód. {c.info.ies_codigo}
-            </p>
-            <MiniChart
-              data={editions.map((e) => ({
-                edicao: e,
-                ref: c.byEd.get(e) ? referenceScore(c.byEd.get(e)!) : null,
-                pos: c.byEd.get(e)?.pos_ultimo_chamado ?? null,
-              }))}
-              aluno={nota}
-            />
-          </div>
-        ))}
-      </div>
-      {list.length === 0 && !error && (
-        <p className="rounded-xl border border-border bg-card px-3 py-8 text-center text-sm text-muted">
-          Nenhum resultado para esses filtros.
-        </p>
-      )}
     </div>
   );
 }

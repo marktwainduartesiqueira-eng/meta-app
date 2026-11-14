@@ -47,7 +47,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <header className="bg-brand-dark text-white">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-1 px-4 py-2 sm:py-3">
           <Link href="/" aria-label="Metta Estudantil — início" className="shrink-0">
-            <Image src="/brand/logo.jpg" alt="Metta Estudantil" width={618} height={383} className="h-12 w-auto rounded-lg sm:h-14" priority />
+            <Image src="/brand/logo.png" alt="Metta Estudantil" width={603} height={300} className="h-11 w-auto sm:h-12" priority />
           </Link>
           {/* No celular os links descem para uma segunda linha, com rolagem lateral se não couberem. */}
           <nav className="scroll-shadow-dark order-last flex w-full gap-4 overflow-x-auto whitespace-nowrap pb-1 [scrollbar-width:none] lg:gap-5 [&::-webkit-scrollbar]:hidden text-sm text-white/80 sm:order-none sm:w-auto sm:flex-1 sm:pb-0">
@@ -66,7 +66,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <SignOutButton />
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">{children}</main>
+      <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-8 sm:py-10">{children}</main>
     </div>
   );
 }

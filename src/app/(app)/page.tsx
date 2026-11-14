@@ -113,7 +113,7 @@ export default async function Home() {
       </section>
 
       {/* Números */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2">
         {stats.map((s) => (
           <div key={s.label} className={`relative overflow-hidden rounded-2xl p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${s.tone}`}>
             <s.icon className="absolute -right-2 -top-2 opacity-15" size={86} />
@@ -129,7 +129,7 @@ export default async function Home() {
       {/* Atalhos */}
       <section>
         <h2 className="font-display mb-4 text-xl font-extrabold text-brand-dark sm:text-2xl">O que vamos fazer hoje?</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           {actions.map((a) => (
             <Link key={a.title} href={a.href} className={`group flex flex-col rounded-2xl p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${a.tone}`}>
               <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-black/10">

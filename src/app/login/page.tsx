@@ -71,7 +71,7 @@ export default function LoginPage() {
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center gap-4 bg-brand-dark px-4 py-6">
-      <Image src="/brand/logo.jpg" alt="Metta Estudantil" width={618} height={383} className="h-28 w-auto rounded-2xl sm:h-36" priority />
+      <Image src="/brand/logo.png" alt="Metta Estudantil" width={603} height={300} className="h-24 w-auto sm:h-28" priority />
       <form onSubmit={submit} className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl sm:p-8">
         <div className="mb-6 text-center">
           <h1 className="text-xl font-bold text-brand-dark">Assessoria FIES</h1>
