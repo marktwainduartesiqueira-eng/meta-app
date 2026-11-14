@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -15,9 +15,12 @@ const display = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Metta Estudantil — Assessoria FIES",
+  title: { default: "Metta Estudantil — Assessoria FIES", template: "%s · Metta Estudantil" },
   description: "Plataforma interna de consulta e coleta de dados do FIES.",
 };
+
+// A barra do navegador no celular acompanha o marinho do cabeçalho.
+export const viewport: Viewport = { themeColor: "#082C40" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

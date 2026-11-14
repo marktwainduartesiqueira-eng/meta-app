@@ -13,6 +13,8 @@ const badge: Record<Chance, string> = {
   "Sem histórico": "bg-slate-100 text-slate-600",
 };
 
+export const metadata = { title: "Pesquisa" };
+
 export default async function Pesquisa({
   searchParams,
 }: {
@@ -128,7 +130,7 @@ export default async function Pesquisa({
         </div>
         {list.length === 0 && !error && (
           <p className="rounded-xl border border-border bg-card px-3 py-8 text-center text-sm text-muted">
-            Nenhum resultado para esses filtros.
+            Nenhuma faculdade encontrada com esses filtros. Tente incluir mais estados ou desmarcar “Só chance Alta/Média”.
           </p>
         )}
       </div>

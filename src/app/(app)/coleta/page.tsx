@@ -1,6 +1,8 @@
 import ColetaForm from "./coleta-form";
 
 // Admin e Consultor fazem coleta; só o Admin importa histórico. A coleta não grava no banco.
+export const metadata = { title: "Coleta" };
+
 export default function ColetaPage() {
   return (
     // Ocupa a largura inteira da janela para a tabela de revisão caber sem rolagem lateral.

@@ -2,6 +2,8 @@ import { getCurrentProfile } from "@/lib/supabase/server";
 import { displayName } from "@/lib/names";
 import PerfilForm from "./perfil-form";
 
+export const metadata = { title: "Meu perfil" };
+
 export default async function PerfilPage() {
   const profile = await getCurrentProfile();
   if (!profile) return null;

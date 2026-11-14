@@ -93,7 +93,7 @@ export default async function CursoPage({
 
       <div className="rise border-t border-border pt-6">
         <h2 className="t-caps mb-3 text-muted">Histórico de notas — {modalidade}</h2>
-        {mine.length ? <HistoryChart data={chart} /> : <p className="text-sm text-muted">Sem registros nesta modalidade.</p>}
+        {mine.length ? <HistoryChart data={chart} /> : <p className="text-sm text-muted">Sem registros nesta modalidade. Escolha outra modalidade acima e clique em Atualizar.</p>}
       </div>
 
       <div className="rise scroll-shadow overflow-x-auto rounded-2xl border border-border bg-card">

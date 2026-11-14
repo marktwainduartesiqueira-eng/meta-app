@@ -11,6 +11,8 @@ interface Row {
   created_at: string;
 }
 
+export const metadata = { title: "Usuários" };
+
 export default async function UsuariosPage() {
   const me = await getCurrentProfile();
   if (me?.papel !== "admin") {

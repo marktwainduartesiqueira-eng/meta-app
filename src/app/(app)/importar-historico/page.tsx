@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import { getCurrentProfile } from "@/lib/supabase/server";
 import ImportForm from "./import-form";
 
+export const metadata = { title: "Importar histórico" };
+
 export default async function ImportarHistoricoPage() {
   const profile = await getCurrentProfile();
   if (profile?.papel !== "admin") redirect("/");

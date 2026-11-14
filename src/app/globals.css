@@ -256,3 +256,41 @@ tbody tr { transition: background-color 0.15s; }
   :is(main, header) :is(button, a)[class*="rounded-full"]:active:not(:disabled) { transform: none; opacity: 0.85; }
   main [class*="hover:-translate-y"]:hover { transform: none; translate: none; }
 }
+
+/* ===== Detalhes: o painel confirma com precisão ===== */
+
+/* Selo de chance com luz de status (a "luz" do vocabulário de instrumentos): a chance também se lê pela forma, não só pela cor. */
+@keyframes light-on {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
+}
+.pop::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.45rem;
+  border-radius: 9999px;
+  background: currentColor;
+  vertical-align: 0.04em;
+  animation: light-on 0.5s ease-out 0.4s backwards;
+}
+
+/* Links dos resultados: o sublinhado aparece com fade, afastado do texto. */
+main a[class*="hover:underline"] {
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 0.2s;
+}
+main a[class*="hover:underline"]:hover { text-decoration-color: currentColor; }
+
+/* Superfícies do navegador, tematizadas pela paleta. */
+::selection { background: var(--brand); color: #ffffff; }
+input, textarea, select { caret-color: var(--brand); accent-color: var(--brand); }
+input::placeholder, textarea::placeholder { color: #4a5a6b; opacity: 1; } /* Ardósia do DESIGN.md: 7,5:1 sobre branco */
+@layer base {
+  * { scrollbar-width: thin; scrollbar-color: #9db0c8 transparent; }
+  header * { scrollbar-color: rgb(255 255 255 / 0.35) transparent; }
+}
