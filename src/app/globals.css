@@ -320,3 +320,6 @@ input::placeholder, textarea::placeholder { color: #4a5a6b; opacity: 1; } /* Ard
 @media (prefers-reduced-motion: reduce) {
   .arc-tick, .ed-pill { animation: none; }
 }
+
+/* Menu Morphic no celular: permite rolar a barra na horizontal quando os links não cabem (o componente fixa pan-y). */
+.nav-scroll [class*="touch-pan-y"] { touch-action: pan-x pan-y; }
